@@ -6,8 +6,9 @@
     <meta charset="utf-8" />
     <title>Dhruv Warrier</title>
 
-    <link href="css/main.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    <link href="css/main.css" rel="stylesheet" />
+    <script type="text/javascript" src="js/main.js"></script>
 
 </head>
 <body>
@@ -15,7 +16,7 @@
 
     <div class="container">
 
-        <div id="mainSubtitle">
+        <div class="subtitle">
             Hi, I'm a second year computer engineering student at University of Toronto passionate about
             engineering and entrepreneurship.
         </div>
@@ -27,6 +28,21 @@
             <a href="https://www.facebook.com/dhruv.warrier"><i class="fab fa-facebook fa-9x greyIcon"></i></a>
             <a href="resume.pdf"><i class="fas fa-file fa-9x greyIcon"></i></a>
 
+        </div>
+
+        <div class="subtitle" id="panelsTrigger">
+            
+            <label onclick="togglePanels()" id="panelsTriggerText">Here's a collection of things I do with my time:</label>
+
+            <button onclick="togglePanels()" id="panelsTriggerButton">
+                <i class="fas fa-arrow-right fa-2x greyIcon"></i>
+            </button>
+
+        </div>
+
+        <div class="textPanel">
+            I'm the founder and head of Broken Table Studios, an indie game studio.<br />
+            <a href="https://brokentablestudios.com/">brokentablestudios.com</a>
         </div>
 
     </div>
