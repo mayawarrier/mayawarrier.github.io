@@ -1,3 +1,33 @@
-﻿.title {
+﻿
+@font-face {
+    font-family: 'Segoe-UI-hosted';
+    src: url('../segoe_ui.ttf') format('truetype');
+}
+
+.container {
+    text-align: center;
+}
+
+.greyIcon {
+
+}
+
+#mainTitle {
+    font-family: Segoe-UI-hosted;
+    font-size: 5vw;
+    color: #707070;
+    text-align: center;
+}
+
+#mainSubtitle {
+    font-family: Segoe-UI-hosted;
+    font-size: 2vw;
+    color: #6A6868;
+    text-align: center;
+    margin: 1.75% 5%;
+    width:90%;
+}
+
+.externalLinksArray {
 
 }
