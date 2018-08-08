@@ -4,6 +4,10 @@
     src: url('../segoe_ui.ttf') format('truetype');
 }
 
+a {
+    color: #6A6868;
+}
+
 .container {
     text-align: center;
 }
@@ -20,7 +24,10 @@
     text-align: center;
 }
 
-#mainSubtitle {
+.externalLinksArray {
+}
+
+.subtitle {
     font-family: Segoe-UI-hosted;
     font-size: 2vw;
     color: #6A6868;
@@ -29,10 +36,28 @@
     width:90%;
 }
 
-#resume {
-    margin-left:30%;
+#panelsTrigger {
+    font-size:1.75vw;
 }
 
-.externalLinksArray {
-    
+#panelsTriggerText:hover {
+    text-decoration:underline;
+    cursor:pointer;
+}
+
+#panelsTriggerButton {
+    border:none;
+    background:#FFF;
+}
+
+.textPanel {
+    font-family: Segoe-UI-hosted;
+    font-size: 1.75vw;
+    color: #6A6868;
+    text-align: center;
+    border-radius: 20px;
+    border: 1px solid #C4B7B7;
+    width: 90%;
+    margin: 0 5%;
+    padding:0.75%;
 }
