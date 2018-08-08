@@ -9,7 +9,8 @@
 }
 
 .greyIcon {
-
+    color: #ADB5BD;
+    padding: 0 1%;
 }
 
 #mainTitle {
@@ -24,10 +25,14 @@
     font-size: 2vw;
     color: #6A6868;
     text-align: center;
-    margin: 1.75% 5%;
+    margin: 1.25% 5%;
     width:90%;
 }
 
-.externalLinksArray {
+#resume {
+    margin-left:30%;
+}
 
+.externalLinksArray {
+    
 }
