@@ -17,14 +17,15 @@ a {
     padding: 0 1%;
 }
 
+    .greyIcon:hover {
+        color: #707070;
+    }
+
 #mainTitle {
     font-family: Segoe-UI-hosted;
     font-size: 5vw;
     color: #707070;
     text-align: center;
-}
-
-.externalLinksArray {
 }
 
 .subtitle {
