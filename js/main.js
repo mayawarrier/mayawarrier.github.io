@@ -1,6 +1,14 @@
 
 var panelIndex = 1;
 var panelsShowing = false;
+var timeBetweenFadeIns = 300;
+var timeToFadeIn = 400;
+
+$(window).on('resize scroll', function () {
+    if (isInViewport("#resume") && panelsShowing) {
+        $("#resume").animate({ "opacity": "1" }, 800);
+    }
+});
 
 function togglePanels()
 {
@@ -8,19 +16,27 @@ function togglePanels()
         panelsShowing = true;
         $(".textPanel").css({ "opacity": "0.01", "display": "block" });
         document.querySelector("#panel2").scrollIntoView({ behavior: 'smooth' });
-        animateFadeIn();
+        animatePanelsFadeIn();
+        $("#resume").css({ "opacity": "0.01", "display": "block" });
     }
 }
 
-function animateFadeIn() {
-
-    var timeBetweenFadeIns = 300;
-    var timeToFadeIn = 400;
-
+function animatePanelsFadeIn()
+{
     setTimeout(() => {
-        $("#panel" + panelIndex).animate({ "opacity": "1" }, timeToFadeIn, () => {
+        $("#panel" + panelIndex).animate({ "opacity": "1" }, timeToFadeIn, function () {
             panelIndex++;
-            animateFadeIn();
+            animatePanelsFadeIn();
         });
     }, timeBetweenFadeIns);
+}
+
+function isInViewport(element) {
+    var elementTop = $(element).offset().top;
+    var elementBottom = elementTop + $(element).outerHeight();
+
+    var viewportTop = $(window).scrollTop();
+    var viewportBottom = viewportTop + $(window).height();
+
+    return elementBottom > viewportTop && elementTop < viewportBottom;
 }
