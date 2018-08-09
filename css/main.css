@@ -38,16 +38,11 @@ a {
 
 #panelsTrigger {
     font-size:1.75vw;
-}
-
-#panelsTriggerText:hover {
     text-decoration:underline;
-    cursor:pointer;
 }
 
-#panelsTriggerButton {
-    border:none;
-    background:#FFF;
+#panelsTrigger:hover {
+    cursor:pointer;
 }
 
 .textPanel {
@@ -61,4 +56,15 @@ a {
     margin: 0 5%;
     margin-bottom: 2%;
     padding:0.75%;
+    display:none;
+}
+
+#resume {
+    display:none;
+}
+
+#resumeLink {
+    font-family:Segoe-UI-hosted;
+    font-size:1.75vw;
+    padding:10%;
 }
