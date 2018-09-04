@@ -14,7 +14,7 @@ function togglePanels()
 {
     if (!panelsShowing) {
         panelsShowing = true;
-        $(".textPanel").css({ "opacity": "0.01", "display": "block" });
+        $(".text-panel").css({ "opacity": "0.01", "display": "block" });
         document.querySelector("#panel2").scrollIntoView({ behavior: 'smooth' });
         animatePanelsFadeIn();
         $("#resume").css({ "opacity": "0.01", "display": "block" });
@@ -23,7 +23,7 @@ function togglePanels()
 
 function animatePanelsFadeIn()
 {
-    setTimeout(() => {
+    setTimeout(function() {
         $("#panel" + panelIndex).animate({ "opacity": "1" }, timeToFadeIn, function () {
             panelIndex++;
             animatePanelsFadeIn();
