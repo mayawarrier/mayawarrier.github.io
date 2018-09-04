@@ -12,6 +12,10 @@ a {
     text-align: center;
 }
 
+.externalLinksArray {
+    margin-top: 3%;
+}
+
 .greyIcon {
     color: #ADB5BD;
     padding: 0 1%;
@@ -23,6 +27,7 @@ a {
 
 #mainTitle {
     font-family: Segoe-UI-hosted;
+    font-family: 'Segoe UI';
     font-size: 5vw;
     color: #707070;
     text-align: center;
@@ -30,16 +35,18 @@ a {
 
 .subtitle {
     font-family: Segoe-UI-hosted;
+    font-family: 'Segoe UI';
     font-size: 2vw;
     color: #6A6868;
     text-align: center;
     margin: 1.25% 5%;
-    width:90%;
+    width: 90%;
 }
 
 #panelsTrigger {
-    font-size:1.75vw;
-    text-decoration:underline;
+    font-size: 1.75vw;
+    margin-top: 3%;
+    text-decoration: underline;
 }
 
 #panelsTrigger:hover {
@@ -48,6 +55,7 @@ a {
 
 .textPanel {
     font-family: Segoe-UI-hosted;
+    font-family: 'Segoe UI';
     font-size: 1.75vw;
     color: #6A6868;
     text-align: center;
@@ -56,17 +64,18 @@ a {
     width: 90%;
     margin: 0 5%;
     margin-bottom: 2%;
-    padding:0.75%;
-    display:none;
+    padding: 0.75%;
+    display: none;
 }
 
 #resume {
-    margin-top:5%;
-    display:none;
+    margin-top: 5%;
+    display: none;
 }
 
 #resumeLink {
-    font-family:Segoe-UI-hosted;
-    font-size:1.75vw;
-    padding:20%;
+    font-family: Segoe-UI-hosted;
+    font-family: 'Segoe UI';
+    font-size: 1.75vw;
+    padding: 20%;
 }
