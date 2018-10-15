@@ -1,10 +1,4 @@
-﻿
-@font-face {
-    font-family: 'Segoe-UI-hosted';
-    src: url('../segoe_ui.ttf') format('truetype');
-}
-
-a {
+﻿a {
     color: #6A6868;
 }
 
@@ -30,8 +24,8 @@ a {
 }
 
 .icon-text {
-    font-family: Segoe-UI-hosted;
     font-family: 'Segoe UI';
+    font-family: 'Lato', sans-serif;
     font-size: 150%;
     color: #FFF;
     text-align: center;
@@ -42,16 +36,16 @@ a {
 }
 
 #main-title {
-    font-family: Segoe-UI-hosted;
     font-family: 'Segoe UI';
+    font-family: 'Lato', sans-serif;
     font-size: 7vw;
     color: #707070;
     text-align: center;
 }
 
 .subtitle {
-    font-family: Segoe-UI-hosted;
     font-family: 'Segoe UI';
+    font-family: 'Lato', sans-serif;
     font-size: 2vw;
     color: #6A6868;
     text-align: center;
@@ -70,8 +64,8 @@ a {
 }
 
 .text-panel {
-    font-family: Segoe-UI-hosted;
     font-family: 'Segoe UI';
+    font-family: 'Lato', sans-serif;
     font-size: 1.75vw;
     color: #6A6868;
     text-align: center;
@@ -90,8 +84,8 @@ a {
 }
 
 #resume-link {
-    font-family: Segoe-UI-hosted;
     font-family: 'Segoe UI';
+    font-family: 'Lato', sans-serif;
     font-size: 1.75vw;
     padding: 20%;
 }
