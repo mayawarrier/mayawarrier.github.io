@@ -6,7 +6,7 @@ var timeToFadeIn = 400;
 
 $(window).on('resize scroll', function () {
     if (isInViewport("#resume") && panelsShowing) {
-        $("#resume").animate({ "opacity": "1" }, 800);
+        $("#resume").animate({ "opacity": "1" }, 1500);
     }
 });
 
