@@ -2,16 +2,39 @@
     color: #6A6868;
 }
 
+body {
+    margin: 0px;
+    padding: 0px;
+}
+
+#page-container {
+    margin: 0px;
+    padding: 0px;
+    height: 100vh;
+    position: relative;
+    background-color: #EFECE6;
+}
+
 .container {
     text-align: center;
+}
+
+.all-text {
+    color: #202020; /* #230C06; #CE8147;*/
+}
+
+.all-text2 {
+    color: #0a0a23;
 }
 
 #main-container {
     position: absolute;
     top: 45%;
     left: 50%;
-    width: 100%;
+    height: 50%;
+    width: 60%;
     transform: translate(-50%, -50%);
+    /*background-color: #561D25; */
 }
 
 .external-links-array {
@@ -19,19 +42,18 @@
 }
 
 .grey-icon {
-    color: #ADB5BD;
     padding: 0 1%;
 }
 
     .grey-icon:hover {
-        color: #707070;
+        color: #1c1c63;
     }
 
 .icon-container {
     position: relative;
 }
 
-.icon-text {
+#resume-icon-text {
     font-family: 'Segoe UI';
     font-family: 'Lato', sans-serif;
     font-size: 150%;
@@ -39,22 +61,13 @@
     text-align: center;
     position: absolute;
     bottom: 200%;
-    left: 22%;
-}
-
-.elastic-fa-9x {
-    font-size: 11.8vw;
-}
-
-.elastic-fa-fx {
-    font-size: 5.2vw;
+    left: 20%;
 }
 
 #main-title {
     font-family: 'Segoe UI';
     font-family: 'Lato', sans-serif;
     font-size: 7vw;
-    color: #707070;
     text-align: center;
 }
 
@@ -62,7 +75,6 @@
     font-family: 'Segoe UI';
     font-family: 'Lato', sans-serif;
     font-size: 2vw;
-    color: #6A6868;
     text-align: center;
     margin: 1.25% 5%;
     width: 90%;
