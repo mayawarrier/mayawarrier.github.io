@@ -1,7 +1,8 @@
 import type { Route } from "./+types/home";
-import { Welcome } from "../components/welcome/welcome";
-import { Navigation } from "~/components/navigation";
-import { HeroHome } from "~/components/herohome";
+// import { Welcome } from "../components/welcome/welcome";
+// import { Navigation } from "~/components/navigation";
+// import { HeroHome } from "~/components/herohome";
+import { PersonalInfo } from "~/components/personalinfo";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -12,9 +13,20 @@ export function meta({}: Route.MetaArgs) {
 
 export default function Home() {
   return (
-    <>
-      <Navigation />
-      <HeroHome />
-    </>
+    <div className="h-screen h-dvh">
+      {/* desktop */}
+      <div className="hidden lg:block h-full">
+        <div className="flex items-center justify-center h-full w-2/5 bg-background">
+          <PersonalInfo />
+        </div>
+      </div>
+
+      {/* mobile */}
+      <div className="lg:hidden h-full">
+        <div className="flex items-center justify-center h-full w-full bg-background">
+          <PersonalInfo />
+        </div>
+      </div>
+    </div>
   );
 }
