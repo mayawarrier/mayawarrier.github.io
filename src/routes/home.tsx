@@ -2,6 +2,8 @@
 // import { Welcome } from "../components/welcome/welcome";
 // import { Navigation } from "~/components/navigation";
 // import { HeroHome } from "~/components/herohome";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { PersonalInfo } from "~/components/personalinfo";
 
 // export function meta({}: Route.MetaArgs) {
@@ -11,7 +13,19 @@ import { PersonalInfo } from "~/components/personalinfo";
 //   ];
 // }
 
-export default function Home() {
+export default function Home() { //{ section }: HomeProps) {
+  const location = useLocation();
+  const section = location.hash.replace("#", "");
+  
+  useEffect(() => {
+    if (location.pathname !== "/") {
+      const newLocation = section ? "/#" + section : "/";
+      window.location.replace(newLocation);
+    }
+  }, [location.pathname, section]);
+
+  console.log("Current section:", section);
+
   return (
     <div className="h-screen h-dvh">
       {/* desktop */}

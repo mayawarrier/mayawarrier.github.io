@@ -1,6 +1,3 @@
 .vs/
 /node_modules/
-
-# React Router
-/.react-router/
-/build/
+dist/
