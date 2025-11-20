@@ -1,10 +1,6 @@
-// import type { Route } from "./+types/home";
-// import { Welcome } from "../components/welcome/welcome";
-// import { Navigation } from "~/components/navigation";
-// import { HeroHome } from "~/components/herohome";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { PersonalInfo } from "~/components/personalinfo";
+import { PersonalInfo } from "~/components/personal-info";
 
 // export function meta({}: Route.MetaArgs) {
 //   return [
@@ -13,7 +9,7 @@ import { PersonalInfo } from "~/components/personalinfo";
 //   ];
 // }
 
-export default function Home() { //{ section }: HomeProps) {
+export default function Home() {
   const location = useLocation();
   const section = location.hash.replace("#", "");
   
@@ -27,20 +23,20 @@ export default function Home() { //{ section }: HomeProps) {
   console.log("Current section:", section);
 
   return (
-    <div className="h-screen h-dvh">
+    <main className="min-h-screen flex flex-col">
       {/* desktop */}
-      <div className="hidden lg:block h-full">
-        <div className="flex items-center justify-center h-full w-2/5">
+      <div className="hidden lg:flex lg:flex-col flex-1">
+        <div className="flex items-center justify-center flex-1 w-2/5 px-8">
           <PersonalInfo />
         </div>
       </div>
 
       {/* mobile */}
-      <div className="lg:hidden h-full">
-        <div className="flex items-center justify-center h-full w-full">
+      <div className="lg:hidden flex flex-col flex-1">
+        <div className="flex items-center justify-center flex-1 w-full px-12">
           <PersonalInfo />
         </div>
       </div>
-    </div>
+    </main>
   );
 }
