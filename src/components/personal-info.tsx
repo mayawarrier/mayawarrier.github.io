@@ -1,49 +1,64 @@
-import { useEffect, useState } from "react"
-import { GithubIcon, LinkedinIcon } from "lucide-react"
+import { GithubIcon, LinkedinIcon, ChevronDownIcon } from "lucide-react"
 
 export const PersonalInfo: React.FC = () => {
+
+  const socials = [
+    { title: "GitHub", href: "https://github.com/mayawarrier", icon: GithubIcon },
+    { title: "LinkedIn", href: "https://www.linkedin.com/in/mayawarrier/", icon: LinkedinIcon }
+  ];
+
   return (
-    <div className="max-w-lg space-y-12">
+    <div className="max-w-lg space-y-12 text-center lg:text-left">
 
       <div className="space-y-6">
         <div className="space-y-6">
-          <h1 className="text-7xl font-bold tracking-tight">Maya Warrier</h1>
-          <p className="text-3xl text-primary font-light">
+          <h1 className="text-6xl xl:text-7xl font-bold tracking-tight">Maya Warrier</h1>
+          <p className="text-2xl xl:text-3xl text-primary font-light">
             Software Engineer @ Manulife
           </p>
         </div>
-        
-        <div className="h-px bg-primary/30 w-20" />
 
-        <p className="text-[1.32rem] text-muted-foreground leading-relaxed font-light space-y-8">
+        <div className="mx-auto lg:mx-0 h-px w-20 bg-primary/30 " />
+
+        <div className="text-[1.2rem] xl:text-[1.32rem] text-muted-foreground leading-relaxed font-light space-y-8">
           <div>
             Passionate about systems programming, GPU acceleration, 3D graphics and game engines.
             Currently building full-stack web applications and cloud infra @ Manulife.
           </div>
           <div>UofT Computer Engineering '24.</div>
-        </p>
+        </div>
       </div>
 
-      <div className="flex flex-row items-center gap-6">
-        <a
-          href="https://github.com/mayawarrier"
-          target="_blank"
-          rel="noopener"
-          className="text-muted-foreground hover:text-accent transition-colors flex items-center gap-2"
+      <div className="flex flex-row items-center justify-center lg:justify-normal gap-6">
+        {socials.map((linkinfo) => {
+          const Icon = linkinfo.icon;
+          return (
+            <a
+              href={linkinfo.href}
+              target="_blank"
+              rel="noopener"
+              className="text-muted-foreground hover:text-accent 
+                transition-colors flex items-center gap-2"
+            >
+              <Icon />
+              <span>{linkinfo.title}</span>
+            </a>
+          )
+        })}
+      </div>
+      
+      <div className="lg:hidden w-full flex items-center justify-center">
+        <button className="flex items-center justify-center gap-1
+          border-1 border-primary/30 text-md text-primary font-medium rounded-md p-3 w-4/5"
+          onClick={() => {
+            const target = document.getElementById("showcase");
+            target?.scrollIntoView({ behavior: "smooth", block: "start" });
+          }}
         >
-          <GithubIcon />
-          <span>GitHub</span>
-        </a>
-        <a
-          href="https://www.linkedin.com/in/mayawarrier/"
-          target="_blank"
-          rel="noopener"
-          className="text-muted-foreground hover:text-accent transition-colors flex items-center gap-2"
-        >
-          <LinkedinIcon />
-          <span>LinkedIn</span>
-        </a>
-        </div>
-    </div>
+          <span>View Portfolio</span>
+          <ChevronDownIcon className="h-5 w-5" />
+        </button>
+      </div>
+      </div>
   );
 }

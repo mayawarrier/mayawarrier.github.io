@@ -1,6 +1,5 @@
-import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
 import { PersonalInfo } from "~/components/personal-info";
+import { Showcase } from "~/components/showcase";
 
 // export function meta({}: Route.MetaArgs) {
 //   return [
@@ -10,31 +9,25 @@ import { PersonalInfo } from "~/components/personal-info";
 // }
 
 export default function Home() {
-  const location = useLocation();
-  const section = location.hash.replace("#", "");
-  
-  useEffect(() => {
-    if (location.pathname !== "/") {
-      const newLocation = section ? "/#" + section : "/";
-      window.location.replace(newLocation);
-    }
-  }, [location.pathname, section]);
-
-  console.log("Current section:", section);
-
   return (
-    <main className="min-h-screen flex flex-col">
+    <main className="min-h-screen flex">
       {/* desktop */}
-      <div className="hidden lg:flex lg:flex-col flex-1">
-        <div className="flex items-center justify-center flex-1 w-2/5 px-8">
+      <div className="hidden lg:flex flex-1">
+        <div className="flex items-center justify-center h-full w-2/5 p-8">
           <PersonalInfo />
+        </div>
+        <div className="flex h-full w-3/5 bg-muted/40">
+          <Showcase />
         </div>
       </div>
 
       {/* mobile */}
       <div className="lg:hidden flex flex-col flex-1">
-        <div className="flex items-center justify-center flex-1 w-full px-12">
+        <div className="flex items-center justify-center h-screen w-full py-12 px-4">
           <PersonalInfo />
+        </div>
+        <div className="flex h-screen w-full" id="showcase">
+          <Showcase />
         </div>
       </div>
     </main>
