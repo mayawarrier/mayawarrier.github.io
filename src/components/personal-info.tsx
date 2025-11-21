@@ -8,32 +8,35 @@ export const PersonalInfo: React.FC = () => {
   ];
 
   return (
-    <div className="max-w-lg space-y-12 text-center lg:text-left">
+    <div className="max-w-xl space-y-12 text-center lg:text-left">
 
       <div className="space-y-6">
         <div className="space-y-6">
           <h1 className="text-6xl xl:text-7xl font-bold tracking-tight">Maya Warrier</h1>
           <p className="text-2xl xl:text-3xl text-primary font-light">
-            Software Engineer @ Manulife
+            Software Engineer
           </p>
         </div>
 
-        <div className="mx-auto lg:mx-0 h-px w-20 bg-primary/30 " />
+        <div className="mx-auto lg:mx-0 h-px w-20 bg-primary/30" />
 
-        <div className="text-[1.2rem] xl:text-[1.32rem] text-muted-foreground leading-relaxed font-light space-y-8">
-          <div>
-            Passionate about systems programming, GPU acceleration, 3D graphics and game engines.
-            Currently building full-stack web applications and cloud infra @ Manulife.
-          </div>
-          <div>UofT Computer Engineering '24.</div>
+        <div className="text-[1.2rem] xl:text-[1.32rem] 
+          text-muted-foreground leading-relaxed font-light space-y-8">
+          <p>
+            Passionate about GPU acceleration, 3D graphics, and high-performance systems.
+            Building consumer-facing applications and cloud infrastructure @ Manulife.
+          </p>
+          <p>UofT Computer Engineering '24.</p>
         </div>
       </div>
 
-      <div className="flex flex-row items-center justify-center lg:justify-normal gap-6">
+      <div className="text-[1.1rem] xl:text-[1.15rem] 
+        flex flex-row items-center justify-center lg:justify-normal gap-6">
         {socials.map((linkinfo) => {
           const Icon = linkinfo.icon;
           return (
             <a
+              key={linkinfo.href}
               href={linkinfo.href}
               target="_blank"
               rel="noopener"
@@ -43,22 +46,24 @@ export const PersonalInfo: React.FC = () => {
               <Icon />
               <span>{linkinfo.title}</span>
             </a>
-          )
+          );
         })}
       </div>
       
       <div className="lg:hidden w-full flex items-center justify-center">
-        <button className="flex items-center justify-center gap-1
-          border-1 border-primary/30 text-md text-primary font-medium rounded-md p-3 w-4/5"
+        <button className="flex items-center justify-center gap-1 p-3 w-4/5
+          border-1 border-primary/30 text-md text-primary font-medium rounded-md
+          hover:text-primary/80 hover:border-primary/50 transition-colors
+          hover:cursor-pointer"
           onClick={() => {
-            const target = document.getElementById("showcase");
+            const target = document.getElementById("mobile-showcase");
             target?.scrollIntoView({ behavior: "smooth", block: "start" });
           }}
         >
-          <span>View Portfolio</span>
+          <span>See More</span>
           <ChevronDownIcon className="h-5 w-5" />
         </button>
       </div>
-      </div>
+    </div>
   );
 }

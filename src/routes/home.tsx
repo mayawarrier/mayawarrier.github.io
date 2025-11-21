@@ -10,23 +10,23 @@ import { Showcase } from "~/components/showcase";
 
 export default function Home() {
   return (
-    <main className="min-h-screen flex">
+    <main className="min-h-screen">
       {/* desktop */}
-      <div className="hidden lg:flex flex-1">
-        <div className="flex items-center justify-center h-full w-2/5 p-8">
+      <div className="hidden lg:flex h-screen">
+        <div className="flex items-center justify-center w-2/5 h-screen p-8 overflow-y-hidden">
           <PersonalInfo />
         </div>
-        <div className="flex h-full w-3/5 bg-muted/40">
+        <div className="h-screen w-3/5">
           <Showcase />
         </div>
       </div>
 
       {/* mobile */}
       <div className="lg:hidden flex flex-col flex-1">
-        <div className="flex items-center justify-center h-screen w-full py-12 px-4">
+        <div className="flex items-center justify-center h-screen py-12 px-4">
           <PersonalInfo />
         </div>
-        <div className="flex h-screen w-full" id="showcase">
+        <div className="min-h-screen flex" id="mobile-showcase">
           <Showcase />
         </div>
       </div>

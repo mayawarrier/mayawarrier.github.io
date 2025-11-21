@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 :root {
+  color-scheme: light;
   /* Light mode color palette */
   --background: oklch(0.99 0.002 90);
   --foreground: oklch(0.2 0.01 90);
@@ -14,6 +15,7 @@
   /* --secondary-foreground: oklch(0.98 0.005 240);
   --muted: oklch(0.92 0.005 240); Light muted background */
   --muted: oklch(0.95 0.005 90);
+  --muted2: oklch(0.974 0.0032 90);
   --muted-foreground: oklch(0.45 0.01 90);
   --accent: oklch(0.58 0.16 280); /* Purple accent for variety */
   --accent-foreground: oklch(0.99 0.002 90);
@@ -40,6 +42,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
+    color-scheme: dark;
     --background: oklch(0.11 0.015 240);
     --foreground: oklch(0.92 0.01 90); 
     /* 
@@ -53,6 +56,7 @@
     /* --secondary-foreground: oklch(0.09 0.01 240); */
     /* --muted: oklch(0.15 0.01 240); Muted dark background */
     --muted: oklch(0.17 0.015 240);
+    --muted2: oklch(0.134 0.015 240);
     --muted-foreground: oklch(0.65 0.01 90);
     --accent: oklch(0.75 0.18 290); /* Bright purple accent */
     --accent-foreground: oklch(0.11 0.015 240);
@@ -93,6 +97,7 @@
   --color-secondary-foreground: var(--secondary-foreground);
   */
   --color-muted: var(--muted);
+  --color-muted2: var(--muted2);
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
