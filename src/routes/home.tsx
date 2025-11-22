@@ -13,7 +13,7 @@ export default function Home() {
     <main className="min-h-screen">
       {/* desktop */}
       <div className="hidden lg:flex h-screen">
-        <div className="flex items-center justify-center w-2/5 h-screen p-8 overflow-y-hidden">
+        <div className="flex items-center justify-center w-2/5 h-screen p-8 overflow-y-hidden bg-muted/50">
           <PersonalInfo />
         </div>
         <div className="h-screen w-3/5">
@@ -23,7 +23,7 @@ export default function Home() {
 
       {/* mobile */}
       <div className="lg:hidden flex flex-col flex-1">
-        <div className="flex items-center justify-center h-screen py-12 px-4">
+        <div className="flex items-center justify-center h-screen py-12 px-4 bg-muted/50">
           <PersonalInfo />
         </div>
         <div className="min-h-screen flex" id="mobile-showcase">
