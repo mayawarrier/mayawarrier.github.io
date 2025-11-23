@@ -21,6 +21,15 @@ const ProjectsTab: React.FC = () => {
     //   githubUrl: "https://github.com/fastfloat/fast_float",
     // },
     {
+      title: "Space Invaders Emulator",
+      description:
+        "Complete emulation of the classic 1978 Space Invaders arcade cabinet, faithfully recreating the original hardware behavior and gaming experience.",
+      imageUrl: "/space-invaders.png",
+      technologies: ["C++", "Game Emulation", "Graphics Programming", "Audio Processing"],
+      githubUrl: "https://github.com/mayawarrier/space_invaders_emulator",
+      liveUrl: "https://mayawarrier.github.io/space_invaders_emulator/",
+    },
+    {
       title: "FPGA Ray-Tracing Engine",
       description:
         "3D Graphics ray-tracing core implemented for the DE1-SoC FPGA board with remote Ethernet operation. Demonstrates advanced hardware programming and real-time graphics rendering on FPGA.",
@@ -28,15 +37,7 @@ const ProjectsTab: React.FC = () => {
       technologies: ["FPGA", "Verilog", "Ray-Tracing", "3D Graphics", "Hardware Design"],
       githubUrl: "https://github.com/capstone-fpga-raytracing",
     },
-    {
-      title: "Space Invaders Emulator",
-      description:
-        "Complete emulation of the classic 1978 Space Invaders arcade cabinet, faithfully recreating the original hardware behavior and gaming experience.",
-      imageUrl: "/space-invaders-1978-arcade-game-retro-pixel-art.jpg",
-      technologies: ["C++", "Game Emulation", "Graphics Programming", "Audio Processing"],
-      githubUrl: "https://github.com/mayawarrier/space_invaders_emulator",
-      liveUrl: "https://mayawarrier.github.io/space_invaders_emulator/",
-    },
+
     {
       title: "Intel 8080 Emulator",
       description:
@@ -63,35 +64,33 @@ const ProjectsTab: React.FC = () => {
   ];
 
   return (
-    <div className="pt-8">
+    <div className="pt-6">
       {projects.map((project) => (
         <div key={project.title} className="flex flex-col">
 
-          <div className="flex flex-col space-y-4">
+          <div
+            onClick={() => window.open(project.liveUrl || project.githubUrl, "_self")}
+            className="flex flex-col space-y-4 group peer px-2 pt-2 pb-9
+              hover:bg-muted/80 hover:cursor-pointer transition-colors rounded-lg"
+          >
             {project.imageUrl && (
-              <div className="pt-2">
-                <img
-                  src={project.imageUrl}
-                  className="w-full h-48 object-cover object-center rounded-md"
-                />
-              </div>
+              <img
+                src={project.imageUrl}
+                className="w-full h-48 object-cover object-center rounded-md" />
             )}
 
-            <div className="flex flex-row gap-2 justify-between pb-4 px-1">
+            <div className="flex flex-row gap-2 justify-between p-1">
               {/* content */}
-              <a
-                href={project.liveUrl || project.githubUrl}
-                className="flex flex-col gap-4 group"
-              >
+              <div className="flex flex-col gap-4">
                 <h3 className="text-lg lg:text-xl font-medium 
-                text-foreground group-hover:text-primary transition-colors">
+                  text-foreground group-hover:text-primary transition-colors">
                   {project.title}
                 </h3>
                 <p className="max-w-3xl text-muted-foreground/80 
                   group-hover:text-foreground/60 transition-colors">
                   {project.description}
                 </p>
-              </a>
+              </div>
 
               {/* links */}
               <div className="flex flex-row items-start gap-2 text-sm">
@@ -107,6 +106,8 @@ const ProjectsTab: React.FC = () => {
                     <a
                       key={idx}
                       href={obj.url}
+                      target="_blank"
+                      onClick={(e) => e.stopPropagation()}
                       className="flex flex-row items-center justify-center gap-1 py-1 px-2
                         text-muted-foreground border-muted-foreground/30 border-1 rounded-md 
                         hover:text-accent hover:border-accent transition-colors">
@@ -119,7 +120,9 @@ const ProjectsTab: React.FC = () => {
             </div>
           </div>
 
-          <div className="mx-auto lg:mx-0 h-px w-full bg-muted-foreground/15 mt-4 mb-6" />
+          <div className="px-2 mb-6 peer-hover:invisible">
+            <div className="h-px bg-muted-foreground/15" />
+          </div>
         </div>
       ))}
     </div>
@@ -151,10 +154,10 @@ export const Showcase: React.FC = () => {
   ];
 
   return (
-    <div className="h-auto lg:h-full w-full lg:overflow-y-auto bg-muted2 p-4 pt-0 lg:p-8 lg:pt-0">
+    <div className="h-auto lg:h-full w-full lg:overflow-y-auto bg-muted2">
 
       {/* tab switcher */}
-      <div className="flex gap-6 sticky top-0 z-10 pt-4 lg:pt-8
+      <div className="flex gap-6 sticky top-0 z-10 pt-4 lg:pt-8 px-4 lg:px-8
         border-b border-foreground/20 bg-muted2 font-medium text-md xl:text-lg">
         {tabs.map((tab) => (
           <button
@@ -165,18 +168,21 @@ export const Showcase: React.FC = () => {
             onClick={() => setActiveTab(tab.name)}
           >
             {tab.name}
-            {activeTab === tab.name && <div className="absolute bottom-0 h-px w-full bg-primary" />}
+            {activeTab === tab.name && 
+              <div className="absolute bottom-0 h-px w-full bg-primary" />}
           </button>
         ))}
       </div>
 
-      {tabs.map((tab) => {
-        if (activeTab !== tab.name) {
-          return null;
-        }
-        const Comp = tab.comp;
-        return <Comp key={tab.name} />;
-      })}
+      <div className="px-2 lg:px-6">
+        {tabs.map((tab) => {
+          if (activeTab !== tab.name) {
+            return null;
+          }
+          const Comp = tab.comp;
+          return <Comp key={tab.name} />;
+        })}
+      </div>
 
     </div>
   );
