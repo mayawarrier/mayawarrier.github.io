@@ -1,68 +1,71 @@
 import { useState } from "react";
 import { GithubIcon, ExternalLinkIcon } from "lucide-react"
 
-const ProjectsTab: React.FC = () => {
+interface ProjectInfo {
+  title: string;
+  description: string;
+  imageUrl?: string;
+  githubUrl: string;
+  liveUrl?: string;
+  technologies: string[];
+}
 
-  interface ProjectInfo {
-    title: string;
-    description: string;
-    imageUrl?: string;
-    githubUrl: string;
-    liveUrl?: string;
-    technologies: string[];
+const projects: Array<ProjectInfo> = [
+  // {
+  //   title: "fast_float",
+  //   description:
+  //     "High-performance C++ implementation of from_chars functions for number types, achieving 4x to 10x speed improvements over standard library implementations. Part of GCC 12, Chromium, Redis and WebKit/Safari.",
+  //   technologies: ["C++", "Performance Optimization", "Compiler Integration", "Benchmarking"],
+  //   githubUrl: "https://github.com/fastfloat/fast_float",
+  // },
+  {
+    title: "3D Mapper",
+    description:
+      "Interactive 3D map viewer using real-world data, running in my custom OpenGL-based 3D engine. " +
+      "I'm currently working on increasing map accuracy and adding support for textures and lighting to my engine.",
+    imageUrl: "/opengl-3dcity.png",
+    technologies: ["C++", "OpenGL", "3D Graphics", "Shader Programming"],
+    githubUrl: "https://github.com/mayawarrier/opengl_3dcity",
+  },
+  {
+    title: "Space Invaders Emulator",
+    description:
+      "Emulation of the classic Space Invaders arcade cabinet. Works like a virtual machine, running the game's original 1978 binary " +
+      "on a simulated Intel 8080 CPU. Can run natively or in a browser (thanks to WASM).",
+    imageUrl: "/space-invaders.png",
+    technologies: ["C++", "Game Emulation", "Graphics Programming", "Audio Processing"],
+    githubUrl: "https://github.com/mayawarrier/space_invaders_emulator",
+    liveUrl: "https://mayawarrier.github.io/space_invaders_emulator/",
+  },
+  {
+    title: "FPGA 3D Renderer Core",
+    description:
+      "A 3D renderer built almost entirely in hardware. Features a fully-pipelined triangle intersection unit and a small cache, and reads " +
+      "data from SDRAM over an Avalon-MM bus. Includes a custom Linux driver and a TCP server for remote control over any network. " +
+      "The images above were produced by our core.",
+    imageUrl: "/fpga-raytracing.png",
+    technologies: ["FPGA", "Verilog", "Ray-Tracing", "3D Graphics", "Hardware Design"],
+    githubUrl: "https://github.com/capstone-fpga-raytracing",
+  }, 
+  {
+    title: "Intel 8080 Emulator",
+    description:
+      "Complete Intel 8080 CPU emulator and disassembler written in C89/ANSI C. Features cycle-accurate emulation and comprehensive instruction set support for vintage computing preservation.",
+    imageUrl: "/vintage-intel-8080-cpu-processor-emulation-retro-c.jpg",
+    technologies: ["C89/ANSI C", "CPU Emulation", "Assembly", "Computer Architecture"],
+    githubUrl: "https://github.com/mayawarrier/intel8080-emulator",
+  },
+  {
+    title: "SI-JSON Library",
+    description:
+      "Experimental header-only JSON library for C++ designed for high performance and ease of integration. Features custom allocators and optimized parsing for embedded systems.",
+    technologies: ["C++", "JSON Parsing", "Header-Only Library", "Memory Management"],
+    githubUrl: "https://github.com/mayawarrier/si-json",
   }
+];
 
-  const projects: Array<ProjectInfo> = [
-    // {
-    //   title: "fast_float",
-    //   description:
-    //     "High-performance C++ implementation of from_chars functions for number types, achieving 4x to 10x speed improvements over standard library implementations. Part of GCC 12, Chromium, Redis and WebKit/Safari.",
-    //   technologies: ["C++", "Performance Optimization", "Compiler Integration", "Benchmarking"],
-    //   githubUrl: "https://github.com/fastfloat/fast_float",
-    // },
-    {
-      title: "Space Invaders Emulator",
-      description:
-        "Complete emulation of the classic 1978 Space Invaders arcade cabinet, faithfully recreating the original hardware behavior and gaming experience.",
-      imageUrl: "/space-invaders.png",
-      technologies: ["C++", "Game Emulation", "Graphics Programming", "Audio Processing"],
-      githubUrl: "https://github.com/mayawarrier/space_invaders_emulator",
-      liveUrl: "https://mayawarrier.github.io/space_invaders_emulator/",
-    },
-    {
-      title: "FPGA Ray-Tracing Engine",
-      description:
-        "3D Graphics ray-tracing core implemented for the DE1-SoC FPGA board with remote Ethernet operation. Demonstrates advanced hardware programming and real-time graphics rendering on FPGA.",
-      imageUrl: "/fpga-raytracing.jpg",
-      technologies: ["FPGA", "Verilog", "Ray-Tracing", "3D Graphics", "Hardware Design"],
-      githubUrl: "https://github.com/capstone-fpga-raytracing",
-    },
 
-    {
-      title: "Intel 8080 Emulator",
-      description:
-        "Complete Intel 8080 CPU emulator and disassembler written in C89/ANSI C. Features cycle-accurate emulation and comprehensive instruction set support for vintage computing preservation.",
-      imageUrl: "/vintage-intel-8080-cpu-processor-emulation-retro-c.jpg",
-      technologies: ["C89/ANSI C", "CPU Emulation", "Assembly", "Computer Architecture"],
-      githubUrl: "https://github.com/mayawarrier/intel8080-emulator",
-    },
-    {
-      title: "OpenGL 3D City",
-      description:
-        "Interactive 3D city visualization built with OpenGL featuring real-time rendering, dynamic lighting, and procedural building generation.",
-      imageUrl: "/opengl-3d-city-rendering.jpg",
-      technologies: ["C++", "OpenGL", "3D Graphics", "Shader Programming"],
-      githubUrl: "https://github.com/mayawarrier/opengl_3dcity",
-    },
-    {
-      title: "SI-JSON Library",
-      description:
-        "Experimental header-only JSON library for C++ designed for high performance and ease of integration. Features custom allocators and optimized parsing for embedded systems.",
-      technologies: ["C++", "JSON Parsing", "Header-Only Library", "Memory Management"],
-      githubUrl: "https://github.com/mayawarrier/si-json",
-    }
-  ];
-
+const ProjectsTab: React.FC = () => {
   return (
     <div className="pt-6">
       {projects.map((project) => (
@@ -71,7 +74,7 @@ const ProjectsTab: React.FC = () => {
           <div
             onClick={() => window.open(project.liveUrl || project.githubUrl, "_self")}
             className="flex flex-col space-y-4 group peer px-2 pt-2 pb-9
-              hover:bg-muted/80 hover:cursor-pointer transition-colors rounded-lg"
+              hover:bg-muted/90 hover:cursor-pointer transition-colors rounded-lg"
           >
             {project.imageUrl && (
               <img
@@ -110,7 +113,8 @@ const ProjectsTab: React.FC = () => {
                       onClick={(e) => e.stopPropagation()}
                       className="flex flex-row items-center justify-center gap-1 py-1 px-2
                         text-muted-foreground border-muted-foreground/30 border-1 rounded-md 
-                        hover:text-accent hover:border-accent transition-colors">
+                        hover:text-accent hover:border-accent transition-colors"
+                    >
                       <Icon className="h-4 w-4" />
                       <span className="hidden lg:block">{obj.label}</span>
                     </a>
@@ -126,7 +130,6 @@ const ProjectsTab: React.FC = () => {
         </div>
       ))}
     </div>
-
   );
 };
 
@@ -141,8 +144,9 @@ const WorkExpTab: React.FC = () => {
 };
 
 enum Tab {
-  PROJECTS = "Projects/Open-Source",
-  WORKEXP = "Work Experience"
+  PROJECTS = "Projects",
+  OPEN_SOURCE = "Open Source",
+  WORK_EXP = "Work Experience"
 };
 
 export const Showcase: React.FC = () => {
@@ -150,7 +154,8 @@ export const Showcase: React.FC = () => {
 
   const tabs = [
     { name: Tab.PROJECTS, comp: ProjectsTab },
-    { name: Tab.WORKEXP, comp: WorkExpTab }
+    { name: Tab.OPEN_SOURCE, comp: WorkExpTab },
+    { name: Tab.WORK_EXP, comp: WorkExpTab }
   ];
 
   return (
