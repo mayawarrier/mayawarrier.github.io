@@ -10,14 +10,7 @@ interface ProjectInfo {
   technologies: string[];
 }
 
-const projects: Array<ProjectInfo> = [
-  // {
-  //   title: "fast_float",
-  //   description:
-  //     "High-performance C++ implementation of from_chars functions for number types, achieving 4x to 10x speed improvements over standard library implementations. Part of GCC 12, Chromium, Redis and WebKit/Safari.",
-  //   technologies: ["C++", "Performance Optimization", "Compiler Integration", "Benchmarking"],
-  //   githubUrl: "https://github.com/fastfloat/fast_float",
-  // },
+const projects: ProjectInfo[] = [
   {
     title: "3D Mapper",
     description:
@@ -30,8 +23,8 @@ const projects: Array<ProjectInfo> = [
   {
     title: "Space Invaders Emulator",
     description:
-      "Emulation of the classic Space Invaders arcade cabinet. Works like a virtual machine, running the game's original 1978 binary " +
-      "on a simulated Intel 8080 CPU. Can run natively or in a browser (thanks to WASM).",
+      "Emulation of the classic Space Invaders arcade cabinet. Works like a virtual machine, running the game's " +
+      "original 1978 binary on a simulated Intel 8080 CPU. Can run natively or in a browser (thanks to WASM).",
     imageUrl: "/space-invaders.png",
     technologies: ["C++", "Game Emulation", "Graphics Programming", "Audio Processing"],
     githubUrl: "https://github.com/mayawarrier/space_invaders_emulator",
@@ -40,9 +33,10 @@ const projects: Array<ProjectInfo> = [
   {
     title: "FPGA 3D Renderer Core",
     description:
-      "A 3D renderer built almost entirely in hardware. Features a fully-pipelined triangle intersection unit and a small cache, and reads " +
-      "data from SDRAM over an Avalon-MM bus. Includes a custom Linux driver and a TCP server for remote control over any network. " +
-      "The images above were produced by our core.",
+      "A 3D renderer core for the DE1-SoC FPGA (in simple terms: a mini GPU). Features a fully-pipelined triangle " +
+      "intersection unit, a small cache, and an SDRAM reader that reads data over an Avalon-MM bus. The FPGA's onboard " +
+      "ARM processor runs our Linux device driver and a simple TCP server for remote control of the core " +
+      "over any network. The images above were produced by our core.",
     imageUrl: "/fpga-raytracing.png",
     technologies: ["FPGA", "Verilog", "Ray-Tracing", "3D Graphics", "Hardware Design"],
     githubUrl: "https://github.com/capstone-fpga-raytracing",
@@ -50,27 +44,29 @@ const projects: Array<ProjectInfo> = [
   {
     title: "Intel 8080 Emulator",
     description:
-      "Complete Intel 8080 CPU emulator and disassembler written in C89/ANSI C. Features cycle-accurate emulation and comprehensive instruction set support for vintage computing preservation.",
-    imageUrl: "/vintage-intel-8080-cpu-processor-emulation-retro-c.jpg",
+      "Intel 8080 CPU emulator and disassembler written in C89/ANSI C. Is optionally freestanding i.e. can run without " +
+      "a host operating system. Supports the entire 8080 instruction set (including undocumented instructions), as well as " +
+      "interrupts and I/O operations.",
     technologies: ["C89/ANSI C", "CPU Emulation", "Assembly", "Computer Architecture"],
     githubUrl: "https://github.com/mayawarrier/intel8080-emulator",
   },
   {
     title: "SI-JSON Library",
     description:
-      "Experimental header-only JSON library for C++ designed for high performance and ease of integration. Features custom allocators and optimized parsing for embedded systems.",
+      "An experimental header-only JSON library designed to be as extensible as possible, with support for Unicode, custom allocators, " +
+      "and user-defined pointers (like those from Boost.Interprocess), while remaining backwards-compatible upto C++11. Features a custom " +
+      "short-string optimized string type that can store up to 31 characters without any heap allocations.",
     technologies: ["C++", "JSON Parsing", "Header-Only Library", "Memory Management"],
     githubUrl: "https://github.com/mayawarrier/si-json",
   }
 ];
 
-
 const ProjectsTab: React.FC = () => {
   return (
-    <div className="pt-6">
+    <>
       {projects.map((project) => (
         <div key={project.title} className="flex flex-col">
-
+          {/* content */}
           <div
             onClick={() => window.open(project.liveUrl || project.githubUrl, "_self")}
             className="flex flex-col space-y-4 group peer px-2 pt-2 pb-9
@@ -83,13 +79,13 @@ const ProjectsTab: React.FC = () => {
             )}
 
             <div className="flex flex-row gap-2 justify-between p-1">
-              {/* content */}
+              {/* text */}
               <div className="flex flex-col gap-4">
                 <h3 className="text-lg lg:text-xl font-medium 
                   text-foreground group-hover:text-primary transition-colors">
                   {project.title}
                 </h3>
-                <p className="max-w-3xl text-muted-foreground/80 
+                <p className="max-w-3xl xl:max-w-208 text-muted-foreground/80 
                   group-hover:text-foreground/60 transition-colors">
                   {project.description}
                 </p>
@@ -124,12 +120,44 @@ const ProjectsTab: React.FC = () => {
             </div>
           </div>
 
+          {/* divider */}
           <div className="px-2 mb-6 peer-hover:invisible">
             <div className="h-px bg-muted-foreground/15" />
           </div>
         </div>
       ))}
-    </div>
+    </>
+  );
+};
+
+interface OpenSourceInfo
+{
+  title: string;
+  description: string;
+  contributions: string[];
+  githubUrl: string;
+};
+
+const openSourceProjects: OpenSourceInfo[] = [
+  {
+    title: "fast_float",
+    description: 
+      "High-performance floating-point and integer string parsing library; 4x to 10x faster than strtod, " +
+      "part of GCC 12, MySQL, Chromium, Redis and WebKit/Safari/",
+    contributions: [],
+    githubUrl: "https://github.com/fastfloat/fast_float",
+  },
+];
+
+const OpenSourceTab : React.FC = () => {
+  return (
+    <>
+      {openSourceProjects.map((project) => (
+        <div key={project.title} className="flex flex-col">
+          {/* content */}
+        </div>
+      ))}
+    </>
   );
 };
 
@@ -154,7 +182,7 @@ export const Showcase: React.FC = () => {
 
   const tabs = [
     { name: Tab.PROJECTS, comp: ProjectsTab },
-    { name: Tab.OPEN_SOURCE, comp: WorkExpTab },
+    { name: Tab.OPEN_SOURCE, comp: OpenSourceTab },
     { name: Tab.WORK_EXP, comp: WorkExpTab }
   ];
 
@@ -179,7 +207,7 @@ export const Showcase: React.FC = () => {
         ))}
       </div>
 
-      <div className="px-2 lg:px-6">
+      <div className="px-2 lg:px-6 pt-6">
         {tabs.map((tab) => {
           if (activeTab !== tab.name) {
             return null;
