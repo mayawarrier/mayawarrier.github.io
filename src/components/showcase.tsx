@@ -188,8 +188,8 @@ const WorkExpTab: React.FC = () => {
 
   return (
     <div className="px-2 lg:px-5">
-      {workExperiences.map((workExp, idx) => (
-        <div className="flex flex-col">
+      {workExperiences.map((workExp, workExpIdx) => (
+        <div key={workExpIdx} className="flex flex-col">
           
           <div className="flex flex-col space-y-4 px-2 pt-2 lg:px-3 lg:pt-3 pb-9">         
             {/* title, subtitle, dates*/}

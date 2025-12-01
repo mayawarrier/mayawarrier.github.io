@@ -95,7 +95,7 @@ ProjectTile.DescList = (props) => {
       <div className="font-medium text-muted-foreground/80">
         {props.title}
       </div>
-      <ul className="list-disc pl-6 text-muted-foreground/80 [&_a]:underline [&_a]:text-accent
+      <ul className="list-disc pl-6 text-muted-foreground/80 [&_a]:underline [&_a]:text-foreground/70
         group-hover:text-foreground/60 group-hover:[&_a]:text-primary/80 transition-colors">
         {props.items.map((desc, descIdx) => (
           props.renderHTML === true ?
@@ -109,7 +109,7 @@ ProjectTile.DescList = (props) => {
 
 ProjectTile.Desc = (props) => {
   return (
-    <p className="text-muted-foreground/80 [&_a]:underline [&_a]:text-accent
+    <p className="text-muted-foreground/80 [&_a]:underline [&_a]:text-foreground/70
         group-hover:text-foreground/60 group-hover:[&_a]:text-primary/80 transition-colors">
       {props.renderHTML === true ?
         <span dangerouslySetInnerHTML={{ __html: props.text }} /> :

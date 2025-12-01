@@ -56,7 +56,7 @@ export const PersonalInfo: React.FC = () => {
           hover:text-primary/80 hover:border-primary/50 transition-colors
           hover:cursor-pointer"
           onClick={() => {
-            const target = document.getElementById("mobile-showcase");
+            const target = document.getElementById("showcase");
             target?.scrollIntoView({ behavior: "smooth", block: "start" });
           }}
         >
