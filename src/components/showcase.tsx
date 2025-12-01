@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { GithubIcon, PlayIcon, GitPullRequestArrowIcon } from "lucide-react"
-import { ProjectTile } from "./project-tile";
+import { ProjectTile } from "~/components/project-tile";
 
 enum ProjectType {
   PROJECT = "Project",
@@ -11,13 +11,16 @@ type ProjectInfo = {
   type: ProjectType.PROJECT;
   title: string;
   description: string;
-  imageUrl?: string;
+  image?: {
+    url: string;
+    alt: string;
+  };
   githubUrl: string;
   liveUrl?: string;
   technologies?: string[];
 }
 
-type OpenSourceProjectInfo = {
+type OpenSrcProjectInfo = {
   type: ProjectType.OPEN_SRC;
   title: string;
   description: string;
@@ -26,7 +29,7 @@ type OpenSourceProjectInfo = {
   contribsUrl: string;
 };
 
-type ShowcaseProjectInfo = ProjectInfo | OpenSourceProjectInfo;
+type ShowcaseProjectInfo = ProjectInfo | OpenSrcProjectInfo;
 
 const projects: ShowcaseProjectInfo[] = [
   {
@@ -35,7 +38,10 @@ const projects: ShowcaseProjectInfo[] = [
     description:
       "Interactive 3D map viewer using real-world data, running in my OpenGL-based 3D engine. " +
       "I'm currently working on increasing map accuracy and adding support for textures and lighting to my engine.",
-    imageUrl: "/opengl-3dcity.png",
+    image: {
+      url: "/opengl-3dcity.png",
+      alt: "3D map of Toronto from an aerial view, showing buildings and roads."
+    },
     githubUrl: "https://github.com/mayawarrier/opengl_3dcity",
   },
   {
@@ -46,7 +52,7 @@ const projects: ShowcaseProjectInfo[] = [
       "part of GCC 12, MySQL, Redis, WebKit, and all major web browsers (Microsoft Edge, Google Chrome, Opera, and Safari).",
     contributions: [
       "Wrote the new integer parser, currently one of the <strong>fastest</strong> C++ integer parsers according to " +
-      "<a href='https://github.com/alugowski/parse-bench?tab=readme-ov-file#results'>benchmarks</a>.",
+      "<a href='https://github.com/alugowski/parse-bench?tab=readme-ov-file#results' onClick='(e) => e.stopPropagation()'>benchmarks</a>.",
       "Improved performance by 10% for Unicode (UTF-16) strings using x86 SIMD",
       "Added support for the JSON numeric format (compliant to the latest JSON RFC 8259)",
     ],
@@ -59,7 +65,10 @@ const projects: ShowcaseProjectInfo[] = [
     description:
       "Emulation of the classic Space Invaders arcade cabinet. Behaves like a virtual machine, running the game's " +
       "original 1978 binary on a simulated Intel 8080 CPU. Can run natively or in a browser (thanks to WASM).",
-    imageUrl: "/space-invaders.png",
+    image: {
+      url: "/space-invaders.png",
+      alt: "Rows of aliens from the Space Invaders game on a black background."
+    },
     githubUrl: "https://github.com/mayawarrier/space_invaders_emulator",
     liveUrl: "https://mayawarrier.github.io/space_invaders_emulator/",
   },
@@ -71,7 +80,11 @@ const projects: ShowcaseProjectInfo[] = [
       "intersection unit, a small cache, and an SDRAM reader that reads data over an Avalon-MM bus. The FPGA's onboard " +
       "ARM processor runs our Linux device driver and a simple TCP server for remote control of the core " +
       "over any network. The images above were produced by our core.",
-    imageUrl: "/fpga-raytracing.png",
+    image: {
+      url: "/fpga-raytracing.png",
+      alt: "Rendered images of a jeep and a shoe produced by the 3D renderer core. " +
+        "Reflections of the jeep can be seen on the ground."
+    },
     githubUrl: "https://github.com/capstone-fpga-raytracing",
   },
   {
@@ -103,7 +116,7 @@ const ProjectsTab: React.FC = () => {
             <ProjectTile
               key={projectIdx}
               title={project.title}
-              imageUrl={project.imageUrl}
+              image={project.image}
               tileClickUrl={project.liveUrl || project.githubUrl}
               extLinks={[
                 { label: "Github", icon: GithubIcon, url: project.githubUrl },
@@ -134,13 +147,78 @@ const ProjectsTab: React.FC = () => {
   );
 };
 
+interface WorkExpInfo {
+  jobTitle: string;
+  company: string;
+  description: string;
+  dateRange: string;
+};
+
+const workExperiences: WorkExpInfo[] = [
+  {
+    jobTitle: "Software Engineer of the best company on the planet ever",
+    company: "Chalk.com",
+    description: "Worked on eating chalk full-time.",
+    dateRange: "May 2023 - Aug 2023"
+  },
+  {
+    jobTitle: "Software Engineer",
+    company: "Chalk.com",
+    description: "Worked on eating chalk full-time.",
+    dateRange: "May 2023 - Aug 2023"
+  },
+  {
+    jobTitle: "Software Engineer",
+    company: "Chalk.com",
+    description: "Worked on eating chalk full-time.",
+    dateRange: "May 2023 - Aug 2023"
+  },
+];
+
 const WorkExpTab: React.FC = () => {
-  const rows = [];
-  for (let i = 0; i < 200; i++) {
-    rows.push(<div>Experience</div>);
-  }
+  const renderJobTitle = (jobTitle: string) => { 
+    return <h1 className="text-lg lg:text-xl font-medium max-w-lg xl:max-w-xl">{jobTitle}</h1>;
+  };
+  const renderCompany = (company: string) => {
+    return <h2 className="text-base lg:text-lg text-primary font-medium">{company}</h2>;
+  };
+  const renderDateRange = (dateRange: string) => {
+    return <span className="text-muted-foreground/80 text-left md:text-right">{dateRange}</span>;
+  };
+
   return (
-    <div>{rows}</div>
+    <div className="px-2 lg:px-5">
+      {workExperiences.map((workExp, idx) => (
+        <div className="flex flex-col">
+          
+          <div className="flex flex-col space-y-4 px-2 pt-2 lg:px-3 lg:pt-3 pb-9">         
+            {/* title, subtitle, dates*/}
+            <div className="flex flex-col md:hidden">
+              {renderJobTitle(workExp.jobTitle)}
+              {renderCompany(workExp.company)}
+              {renderDateRange(workExp.dateRange)}
+            </div>
+            <div className="hidden md:flex md:flex-col">
+              <div className="flex flex-row justify-between items-center gap-4">
+                {renderJobTitle(workExp.jobTitle)}
+                {renderDateRange(workExp.dateRange)}
+              </div>
+              {renderCompany(workExp.company)}
+            </div>
+
+            {/* description */}
+            <p className="text-muted-foreground/80">
+              {workExp.description}
+            </p>
+          </div>
+
+          {/* divider */}
+          <div className="px-2 mb-6 peer-hover:invisible">
+            <div className="h-px bg-muted-foreground/15" />
+          </div>
+        </div>
+      ))}
+    </div>
   );
 };
 
@@ -162,7 +240,7 @@ export const Showcase: React.FC = () => {
 
       {/* tab switcher */}
       <div className="flex gap-6 sticky top-0 z-10 pt-4 lg:pt-8 px-4 lg:px-8
-        border-b border-foreground/20 bg-muted2 font-medium text-md xl:text-lg">
+        border-b border-foreground/20 bg-muted2 font-medium lg:text-[1.05rem]">
         {tabs.map((tab) => (
           <button
             key={tab.name}
