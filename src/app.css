@@ -44,7 +44,7 @@
   :root {
     color-scheme: dark;
     --background: oklch(0.11 0.015 240);
-    --foreground: oklch(0.92 0.01 90); 
+    --foreground: oklch(97.058% 0.00562 84.444); 
     /* 
     --card: oklch(0.12 0.01 240);
     --card-foreground: oklch(0.95 0.01 240);
@@ -57,7 +57,7 @@
     /* --muted: oklch(0.15 0.01 240); Muted dark background */
     --muted: oklch(0.17 0.015 240);
     --muted2: oklch(0.128 0.015 240);
-    --muted-foreground: oklch(0.65 0.01 90);
+    --muted-foreground: oklch(65.965% 0.00139 107.263);
     --accent: oklch(0.75 0.18 290); /* Bright purple accent */
     --accent-foreground: oklch(0.11 0.015 240);
     --destructive: oklch(0.6 0.2 15);

@@ -1,6 +1,8 @@
-import { LucideIcon } from "lucide-react"
+import { ReactNode } from "react";
+import { LucideIcon } from "lucide-react";
+import { StyledLink, StyledLinkProps } from "./utils";
 
-export type ProjectTileProps = React.PropsWithChildren<{
+export interface ProjectTileProps {
   title: string;
   image?: {
     url: string;
@@ -12,21 +14,19 @@ export type ProjectTileProps = React.PropsWithChildren<{
     icon: LucideIcon;
     url?: string;
   }[];
-}>;
+  children?: ReactNode;
+};
 
 export interface ProjectTileFC extends React.FC<ProjectTileProps> {
   DescList: React.FC<{
     title: string;
-    items: string[];
-    /** Use dangerouslySetInnerHTML */
-    renderHTML?: boolean;
+    items: ReactNode[];
   }>;
   Desc: React.FC<{
-    text: string;
-    /** Use dangerouslySetInnerHTML */
-    renderHTML?: boolean;
+    text: ReactNode;
   }>;
-}
+  Link: React.FC<StyledLinkProps>;
+};
 
 export const ProjectTile: ProjectTileFC = (props) => {
   return (
@@ -91,17 +91,13 @@ export const ProjectTile: ProjectTileFC = (props) => {
 
 ProjectTile.DescList = (props) => {
   return (
-    <div className="space-y-2">
-      <div className="font-medium text-muted-foreground/80">
+    <div className="space-y-2 text-muted-foreground/80
+        group-hover:text-foreground/60 transition-colors">
+      <div className="font-medium">
         {props.title}
       </div>
-      <ul className="list-disc pl-6 text-muted-foreground/80 [&_a]:underline [&_a]:text-foreground/70
-        group-hover:text-foreground/60 group-hover:[&_a]:text-primary/80 transition-colors">
-        {props.items.map((desc, descIdx) => (
-          props.renderHTML === true ?
-            <li key={descIdx} dangerouslySetInnerHTML={{ __html: desc }} /> :
-            <li key={descIdx}>{desc}</li>
-        ))}
+      <ul className="list-disc pl-6">
+        {props.items.map((desc, descIdx) => <li key={descIdx}>{desc}</li>)}
       </ul>
     </div>
   );
@@ -109,12 +105,18 @@ ProjectTile.DescList = (props) => {
 
 ProjectTile.Desc = (props) => {
   return (
-    <p className="text-muted-foreground/80 [&_a]:underline [&_a]:text-foreground/70
-        group-hover:text-foreground/60 group-hover:[&_a]:text-primary/80 transition-colors">
-      {props.renderHTML === true ?
-        <span dangerouslySetInnerHTML={{ __html: props.text }} /> :
-        props.text
-      }
+    <p className="text-muted-foreground/80 
+        group-hover:text-foreground/60 transition-colors">
+      {props.text}
     </p>
   );
+};
+
+ProjectTile.Link = ({ onClick, ...props }) => {
+  return (
+    <StyledLink {...props} onClick={(e) => {
+      e.stopPropagation();
+      onClick?.(e);
+    }} />
+  )
 };

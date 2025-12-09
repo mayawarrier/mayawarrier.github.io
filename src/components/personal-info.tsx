@@ -1,18 +1,14 @@
-import { GithubIcon, LinkedinIcon, ChevronDownIcon } from "lucide-react"
+import { GithubIcon, LinkedinIcon, ChevronDownIcon } from "lucide-react";
 
 export const PersonalInfo: React.FC = () => {
-
-  const socials = [
-    { title: "GitHub", href: "https://github.com/mayawarrier", icon: GithubIcon },
-    { title: "LinkedIn", href: "https://www.linkedin.com/in/mayawarrier/", icon: LinkedinIcon }
-  ];
-
   return (
     <div className="max-w-xl space-y-12 text-center lg:text-left">
 
       <div className="space-y-6">
         <div className="space-y-6">
-          <h1 className="text-6xl xl:text-7xl font-bold tracking-tight">Maya Warrier</h1>
+          <h1 className="text-6xl xl:text-7xl font-bold tracking-tight">
+            Maya Warrier
+          </h1>
           <p className="text-2xl xl:text-3xl text-primary font-light">
             Software Engineer
           </p>
@@ -32,7 +28,10 @@ export const PersonalInfo: React.FC = () => {
 
       <div className="text-[1.1rem] xl:text-[1.15rem] 
         flex flex-row items-center justify-center lg:justify-normal gap-6">
-        {socials.map((linkinfo) => {
+        {[
+          { title: "GitHub", href: "https://github.com/mayawarrier", icon: GithubIcon },
+          { title: "LinkedIn", href: "https://www.linkedin.com/in/mayawarrier/", icon: LinkedinIcon }
+        ].map((linkinfo) => {
           const Icon = linkinfo.icon;
           return (
             <a
@@ -49,7 +48,7 @@ export const PersonalInfo: React.FC = () => {
           );
         })}
       </div>
-      
+
       <div className="lg:hidden w-full flex items-center justify-center">
         <button className="flex items-center justify-center gap-1 p-3 w-4/5
           border-1 border-primary/30 text-md text-primary font-medium rounded-md

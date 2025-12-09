@@ -1,16 +1,17 @@
-import { useState } from "react";
+import { useState, ReactNode } from "react";
 import { GithubIcon, PlayIcon, GitPullRequestArrowIcon } from "lucide-react"
 import { ProjectTile } from "~/components/project-tile";
+import { StyledLink } from "~/components/utils";
 
 enum ProjectType {
   PROJECT = "Project",
   OPEN_SRC = "OpenSrc"
 };
 
-type ProjectInfo = {
+interface ProjectInfo {
   type: ProjectType.PROJECT;
   title: string;
-  description: string;
+  description: ReactNode;
   image?: {
     url: string;
     alt: string;
@@ -20,11 +21,11 @@ type ProjectInfo = {
   technologies?: string[];
 }
 
-type OpenSrcProjectInfo = {
+interface OpenSrcProjectInfo {
   type: ProjectType.OPEN_SRC;
   title: string;
-  description: string;
-  contributions: string[];
+  description: ReactNode;
+  contributions: ReactNode[];
   githubUrl: string;
   contribsUrl: string;
 };
@@ -33,31 +34,37 @@ type ShowcaseProjectInfo = ProjectInfo | OpenSrcProjectInfo;
 
 const projects: ShowcaseProjectInfo[] = [
   {
-    type: ProjectType.PROJECT,
-    title: "3D Mapper",
-    description:
-      "Interactive 3D map viewer using real-world data, running in my OpenGL-based 3D engine. " +
-      "I'm currently working on increasing map accuracy and adding support for textures and lighting to my engine.",
-    image: {
-      url: "/opengl-3dcity.png",
-      alt: "3D map of Toronto from an aerial view, showing buildings and roads."
-    },
-    githubUrl: "https://github.com/mayawarrier/opengl_3dcity",
-  },
-  {
     type: ProjectType.OPEN_SRC,
     title: "fast_float",
     description:
       "High-performance floating-point and integer parsing library; 4x to 10x faster than strtod, " +
       "part of GCC 12, MySQL, Redis, WebKit, and all major web browsers (Microsoft Edge, Google Chrome, Opera, and Safari).",
     contributions: [
-      "Wrote the new integer parser, currently one of the <strong>fastest</strong> C++ integer parsers according to " +
-      "<a href='https://github.com/alugowski/parse-bench?tab=readme-ov-file#results' onClick='(e) => e.stopPropagation()'>benchmarks</a>.",
-      "Improved performance by 10% for Unicode (UTF-16) strings using x86 SIMD",
-      "Added support for the JSON numeric format (compliant to the latest JSON RFC 8259)",
+      <>
+        Wrote the new integer parser, which is among the{" "}
+        <span className="font-bold">fastest</span>
+        {" C++ integer parsers in "}
+        <ProjectTile.Link href="https://github.com/alugowski/parse-bench?tab=readme-ov-file#results" isExternal>
+          benchmarks
+        </ProjectTile.Link>, and is about 2-3x faster than Microsoft's from_chars() implementation.
+      </>,
+      "Improved floating-point parsing performance by 10% for Unicode (UTF-16) strings using x86 SIMD.",
+      "Added support for the JSON numeric format (compliant to RFC 8259).",
     ],
     githubUrl: "https://github.com/fastfloat/fast_float",
     contribsUrl: "https://github.com/fastfloat/fast_float/pulls?q=is%3Apr+author%3Amayawarrier"
+  },
+  {
+    type: ProjectType.PROJECT,
+    title: "3D Mapper",
+    description:
+      "Interactive 3D map viewer using real-world data, running in my OpenGL-based 3D engine. " +
+      "I'm currently working on increasing map accuracy and adding support for textures and lighting.",
+    image: {
+      url: "/opengl-3dcity.png",
+      alt: "3D map of Toronto from an aerial view, showing buildings and roads."
+    },
+    githubUrl: "https://github.com/mayawarrier/opengl_3dcity",
   },
   {
     type: ProjectType.PROJECT,
@@ -138,7 +145,10 @@ const ProjectsTab: React.FC = () => {
               ]}
             >
               <ProjectTile.Desc text={project.description} />
-              <ProjectTile.DescList title={"Contributions:"} items={project.contributions} renderHTML={true} />
+              <ProjectTile.DescList
+                title={"My contributions:"}
+                items={project.contributions}
+              />
             </ProjectTile>
           );
         }
@@ -150,55 +160,77 @@ const ProjectsTab: React.FC = () => {
 interface WorkExpInfo {
   jobTitle: string;
   company: string;
-  description: string;
+  bullets: ReactNode[];
   dateRange: string;
 };
 
 const workExperiences: WorkExpInfo[] = [
   {
-    jobTitle: "Software Engineer of the best company on the planet ever",
-    company: "Chalk.com",
-    description: "Worked on eating chalk full-time.",
+    jobTitle: "Full Stack Software Engineer",
+    company: "Manulife",
+    bullets: [
+      "Co-developed the prototype for a GPU-accelerated version of our liability valuation engine using Python Numba with CUDA, " +
+      "closely matching performance of a costly vendor solution for just 1000$ a month in infrastructure.",
+      <>
+        Single-handedly developed the new <span className="font-bold">.NET-based</span> report loader powering all new reports in a major Life Insurance product.
+        The system was delivered end-to-end in 6 months and sped up project delivery by an estimated 3 months. Received recognition from
+        CIO Shamus Weiland for my efforts.
+      </>,
+      "Leveraged ",
+      "Worked on eating chalk full-time.",
+    ],
+    dateRange: "June 2024 - Present"
+  },
+  {
+    jobTitle: "Software Engineer (Co-Op)",
+    company: "Rocscience",
+    bullets: [
+      "Co-developed the core library for Rocscience’s then upcoming line of 2D geotechnical CAD software with a team of 3.",
+      "Built our in-house JSON library, using .NET IL (low-level .NET assembly language) to autogenerate fast serialization code for any class.",
+      "Designed an automated Undo/Redo system that worked by comparing differences between two object hierarchies (similar to what React does with the DOM). " + 
+      "This significantly improved performance of large undo/redos by reducing garbage collection overhead.",
+      "Optimized the C++/CUDA compute engine by extracting field-point computations into a dedicated solver. This eliminated the need to " +
+      "run the full solver every time, greatly reducing compute time for field-point changes."
+    ],
     dateRange: "May 2023 - Aug 2023"
   },
   {
     jobTitle: "Software Engineer",
     company: "Chalk.com",
-    description: "Worked on eating chalk full-time.",
-    dateRange: "May 2023 - Aug 2023"
-  },
-  {
-    jobTitle: "Software Engineer",
-    company: "Chalk.com",
-    description: "Worked on eating chalk full-time.",
+    bullets: [
+      "Worked on eating chalk full-time.",
+      "Worked on eating chalk full-time.",
+      "Worked on eating chalk full-time.",
+      "Worked on eating chalk full-time.",
+    ],
     dateRange: "May 2023 - Aug 2023"
   },
 ];
 
 const WorkExpTab: React.FC = () => {
-  const renderJobTitle = (jobTitle: string) => { 
+  const renderJobTitle = (jobTitle: string) => {
     return <h1 className="text-lg lg:text-xl font-medium max-w-lg xl:max-w-xl">{jobTitle}</h1>;
   };
   const renderCompany = (company: string) => {
     return <h2 className="text-base lg:text-lg text-primary font-medium">{company}</h2>;
   };
   const renderDateRange = (dateRange: string) => {
-    return <span className="text-muted-foreground/80 text-left md:text-right">{dateRange}</span>;
+    return <span className="text-muted-foreground/90 text-left md:text-right">{dateRange}</span>;
   };
 
   return (
-    <div className="px-2 lg:px-5">
+    <div className="px-2 lg:px-5 pt-3">
       {workExperiences.map((workExp, workExpIdx) => (
         <div key={workExpIdx} className="flex flex-col">
-          
-          <div className="flex flex-col space-y-4 px-2 pt-2 lg:px-3 lg:pt-3 pb-9">         
+
+          <div className="flex flex-col space-y-3 px-2 lg:px-3 pb-8">
             {/* title, subtitle, dates*/}
-            <div className="flex flex-col md:hidden">
+            <div className="flex flex-col md:hidden space-y-0.5 p-1">
               {renderJobTitle(workExp.jobTitle)}
               {renderCompany(workExp.company)}
               {renderDateRange(workExp.dateRange)}
             </div>
-            <div className="hidden md:flex md:flex-col">
+            <div className="hidden md:flex md:flex-col space-y-0.5 p-1">
               <div className="flex flex-row justify-between items-center gap-4">
                 {renderJobTitle(workExp.jobTitle)}
                 {renderDateRange(workExp.dateRange)}
@@ -207,13 +239,13 @@ const WorkExpTab: React.FC = () => {
             </div>
 
             {/* description */}
-            <p className="text-muted-foreground/80">
-              {workExp.description}
-            </p>
+            <ul className="list-disc pl-7 text-muted-foreground/80">
+              {workExp.bullets.map((desc, descIdx) => <li key={descIdx}>{desc}</li>)}
+            </ul>
           </div>
 
           {/* divider */}
-          <div className="px-2 mb-6 peer-hover:invisible">
+          <div className="px-2 mb-6">
             <div className="h-px bg-muted-foreground/15" />
           </div>
         </div>
@@ -256,7 +288,7 @@ export const Showcase: React.FC = () => {
         ))}
       </div>
 
-      <div className="pt-6">
+      <div className="pt-4">
         {tabs.map((tab) => {
           if (activeTab !== tab.name) {
             return null;
