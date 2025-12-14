@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { LucideIcon } from "lucide-react";
-import { StyledLink, StyledLinkProps } from "./utils";
+import { StyledLink, StyledLinkProps, ExternalLink } from "./utils";
 
 export interface ProjectTileProps {
   title: string;
@@ -52,23 +52,22 @@ export const ProjectTile: ProjectTileFC = (props) => {
               {props.title}
             </h1>
             <div className="flex flex-row items-start gap-2 text-sm">
-              {props.extLinks.map((obj, idx) => {
-                if (!obj.url) {
+              {props.extLinks.map((extLink, idx) => {
+                if (!extLink.url) {
                   return null;
                 }
-                const Icon = obj.icon;
+                const Icon = extLink.icon;
                 return (
-                  <a
+                  <ExternalLink
                     key={idx}
-                    href={obj.url}
-                    target="_blank"
+                    href={extLink.url}
                     onClick={(e) => e.stopPropagation()}
                     className="flex flex-row items-center justify-center gap-1 py-1 px-2
                         text-muted-foreground border-muted-foreground/30 border-1 rounded-md 
                         hover:text-accent hover:border-accent transition-colors">
                     <Icon className="h-4 w-4" />
-                    <span className="hidden lg:block">{obj.label}</span>
-                  </a>
+                    <span className="hidden lg:block">{extLink.label}</span>
+                  </ExternalLink>
                 );
               })}
             </div>
@@ -118,5 +117,5 @@ ProjectTile.Link = ({ onClick, ...props }) => {
       e.stopPropagation();
       onClick?.(e);
     }} />
-  )
+  );
 };

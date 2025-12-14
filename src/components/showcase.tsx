@@ -1,7 +1,7 @@
 import { useState, ReactNode } from "react";
-import { GithubIcon, PlayIcon, GitPullRequestArrowIcon } from "lucide-react"
-import { ProjectTile } from "~/components/project-tile";
-import { StyledLink } from "~/components/utils";
+import { GithubIcon, PlayIcon, GitPullRequestArrowIcon } from "lucide-react";
+import { ProjectTile } from "./project-tile";
+import { Bold } from "./utils";
 
 enum ProjectType {
   PROJECT = "Project",
@@ -41,12 +41,12 @@ const projects: ShowcaseProjectInfo[] = [
       "part of GCC 12, MySQL, Redis, WebKit, and all major web browsers (Microsoft Edge, Google Chrome, Opera, and Safari).",
     contributions: [
       <>
-        Wrote the new integer parser, which is among the{" "}
-        <span className="font-bold">fastest</span>
+        {"Wrote the new integer parser, which is among the "}
+        <span className="font-bold">{"fastest"}</span>
         {" C++ integer parsers in "}
         <ProjectTile.Link href="https://github.com/alugowski/parse-bench?tab=readme-ov-file#results" isExternal>
-          benchmarks
-        </ProjectTile.Link>, and is about 2-3x faster than Microsoft's from_chars() implementation.
+          {"benchmarks"}
+        </ProjectTile.Link>{", and is about 2-3x faster than Microsoft's from_chars() implementation."}
       </>,
       "Improved floating-point parsing performance by 10% for Unicode (UTF-16) strings using x86 SIMD.",
       "Added support for the JSON numeric format (compliant to RFC 8259).",
@@ -169,15 +169,25 @@ const workExperiences: WorkExpInfo[] = [
     jobTitle: "Full Stack Software Engineer",
     company: "Manulife",
     bullets: [
-      "Co-developed the prototype for a GPU-accelerated version of our liability valuation engine using Python Numba with CUDA, " +
-      "closely matching performance of a costly vendor solution for just 1000$ a month in infrastructure.",
       <>
-        Single-handedly developed the new <span className="font-bold">.NET-based</span> report loader powering all new reports in a major Life Insurance product.
-        The system was delivered end-to-end in 6 months and sped up project delivery by an estimated 3 months. Received recognition from
-        CIO Shamus Weiland for my efforts.
+        {"Co-designed and implemented our in-house "}<Bold>{"GPU-accelerated"}</Bold>
+        {" liability valuation engine using "}<Bold>{"Python"}</Bold>{" and Numba "}<Bold>{"CUDA"}</Bold>
+        {", closely matching the performance of an external vendor solution costing "}<Bold>{"millions of dollars annually."}</Bold>
       </>,
-      "Leveraged ",
-      "Worked on eating chalk full-time.",
+      <>
+        {"Designed and developed the new "}<Bold>{".NET"}</Bold>{"-based"}
+        {" report loader powering all new reports for a major Life Insurance product. The system was delivered end-to-end in 6 months " +
+          "and sped up project delivery by 3 months, receiving "}<Bold>{"CIO-level recognition."}</Bold>
+      </>,
+      <>
+        {"Worked on a consumer-facing web app serving thousands of users in North America, developing and shipping features using "}
+        <Bold>{"TypeScript, React, Node.js, and Express."}</Bold>
+      </>,
+      <>
+        {"Worked on cloud infrastructure, using "}<Bold>{"Terraform"}</Bold>{" to maintain and evolve shared "}
+        <Bold>{"Azure"}</Bold>{" resources including "}<Bold>{"Redis"}</Bold>{" caches, "}<Bold>{"MongoDB"}</Bold>{" instances"}
+        {" and associated networking across multiple environments."}
+      </>,
     ],
     dateRange: "June 2024 - Present"
   },
@@ -185,26 +195,55 @@ const workExperiences: WorkExpInfo[] = [
     jobTitle: "Software Engineer (Co-Op)",
     company: "Rocscience",
     bullets: [
-      "Co-developed the core library for Rocscience’s then upcoming line of 2D geotechnical CAD software with a team of 3.",
-      "Built our in-house JSON library, using .NET IL (low-level .NET assembly language) to autogenerate fast serialization code for any class.",
-      "Designed an automated Undo/Redo system that worked by comparing differences between two object hierarchies (similar to what React does with the DOM). " + 
-      "This significantly improved performance of large undo/redos by reducing garbage collection overhead.",
-      "Optimized the C++/CUDA compute engine by extracting field-point computations into a dedicated solver. This eliminated the need to " +
-      "run the full solver every time, greatly reducing compute time for field-point changes."
+      <>
+        {"Co-developed the core library for Rocscience’s then upcoming line of 2D geotechnical CAD software using "}
+        <Bold>{".NET, WPF"}</Bold>{" and "}<Bold>{"C++/CUDA."}</Bold>
+      </>,
+      <>
+        {"Built our in-house JSON library, using "}<Bold>{".NET IL"}</Bold>
+        {" (intermediate assembly language) to autogenerate fast serialization code for any class."}
+      </>,
+      <>
+        {"Designed an "}<Bold>{"automated Undo/Redo"}</Bold>{" system that worked by comparing differences between two application states " +
+          "(similar to React), eliminating the need to manually implement undo/redo logic for every change."}
+      </>,
+      <>
+        {"Optimized the "}<Bold>{"C++/CUDA"}</Bold>
+        {" compute engine by extracting field-point computations into a dedicated solver. This enabled interactive field-point changes " +
+          "where previously computations could take tens of minutes or longer."}
+      </>
     ],
-    dateRange: "May 2023 - Aug 2023"
+    dateRange: "May 2020 - Sep 2021"
   },
   {
-    jobTitle: "Software Engineer",
-    company: "Chalk.com",
+    jobTitle: "Software Engineer Intern",
+    company: "Rocscience",
     bullets: [
-      "Worked on eating chalk full-time.",
-      "Worked on eating chalk full-time.",
-      "Worked on eating chalk full-time.",
-      "Worked on eating chalk full-time.",
+      <>
+        {"Developed 3D CAD tools in "}<Bold>{"C#"}</Bold>{" and "}<Bold>{".NET WPF"}</Bold>
+        {" for Rocscience’s Examine3 geotechnical analysis product."}
+      </>,
+      "Built the foundation of Examine3's field-point contouring and visualization tools, and " +
+      "migrated the legacy graphing system to Examine3."
     ],
-    dateRange: "May 2023 - Aug 2023"
+    dateRange: "May 2019 – Aug 2019"
   },
+  {
+    jobTitle: "Research Assistant",
+    company: "University of Toronto",
+    bullets: [
+      <>
+        {"Co-developed "}<Bold>{"\"city-builder\""}</Bold>{" in "}<Bold>{"Unity3D"}</Bold>
+        {", a cross-platform tool for urban planning and civil engineering research."}
+      </>,
+      <>
+        {"Designed a "}<Bold>{"JSON-based"}</Bold>
+        {" file format and supporting APIs to represent cities, roads, and lanes, and to customize " +
+          "their sizes, types, signage etc."}
+      </>
+    ],
+    dateRange: "Dec 2017 – Jan 2019"
+  }
 ];
 
 const WorkExpTab: React.FC = () => {
@@ -254,18 +293,30 @@ const WorkExpTab: React.FC = () => {
   );
 };
 
-enum Tab {
-  PROJECTS = "Projects/Open Source",
-  WORK_EXP = "Work Experience"
+enum TabType {
+  PROJECTS = "Projects",
+  WORK_EXP = "WorkExp"
+};
+
+interface TabInfo {
+  type: TabType;
+  name: string;
+  hash: string;
+  comp: React.FC;
 };
 
 export const Showcase: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<Tab>(Tab.PROJECTS);
+  const [activeTabType, setActiveTabType] = useState<TabType>(TabType.PROJECTS);
 
-  const tabs = [
-    { name: Tab.PROJECTS, comp: ProjectsTab },
-    { name: Tab.WORK_EXP, comp: WorkExpTab }
+  const tabs: TabInfo[] = [
+    { type: TabType.PROJECTS, name: "Projects/Open Source", hash: "projects", comp: ProjectsTab },
+    { type: TabType.WORK_EXP, name: "Work Experience", hash: "work-experience", comp: WorkExpTab }
   ];
+
+  const setActiveTab = (tab: TabInfo) => {
+    window.location.hash = tab.hash;
+    setActiveTabType(tab.type);
+  };
 
   return (
     <div className="h-auto lg:h-full w-full lg:overflow-y-auto">
@@ -273,24 +324,22 @@ export const Showcase: React.FC = () => {
       {/* tab switcher */}
       <div className="flex gap-6 sticky top-0 z-10 pt-4 lg:pt-8 px-4 lg:px-8
         border-b border-foreground/20 bg-muted2 font-medium lg:text-[1.05rem]">
-        {tabs.map((tab) => (
+        {tabs.map((tab, tabIdx) => (
           <button
-            key={tab.name}
+            key={tabIdx}
             className={`py-2 relative transition-colors hover:cursor-pointer 
-              ${activeTab === tab.name ?
-                "text-foreground" : "text-muted-foreground hover:text-foreground"}`}
-            onClick={() => setActiveTab(tab.name)}
+              ${activeTabType === tab.type ? "text-foreground" : "text-muted-foreground hover:text-foreground"}`}
+            onClick={() => setActiveTab(tab)}
           >
             {tab.name}
-            {activeTab === tab.name &&
-              <div className="absolute bottom-0 h-px w-full bg-primary" />}
+            {activeTabType === tab.type && <div className="absolute bottom-0 h-px w-full bg-primary" />}
           </button>
         ))}
       </div>
 
       <div className="pt-4">
         {tabs.map((tab) => {
-          if (activeTab !== tab.name) {
+          if (activeTabType !== tab.type) {
             return null;
           }
           const Comp = tab.comp;

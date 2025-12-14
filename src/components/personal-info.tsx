@@ -31,19 +31,19 @@ export const PersonalInfo: React.FC = () => {
         {[
           { title: "GitHub", href: "https://github.com/mayawarrier", icon: GithubIcon },
           { title: "LinkedIn", href: "https://www.linkedin.com/in/mayawarrier/", icon: LinkedinIcon }
-        ].map((linkinfo) => {
-          const Icon = linkinfo.icon;
+        ].map((link, linkIdx) => {
+          const Icon = link.icon;
           return (
             <a
-              key={linkinfo.href}
-              href={linkinfo.href}
+              key={linkIdx}
+              href={link.href}
               target="_blank"
               rel="noopener"
               className="text-muted-foreground hover:text-accent 
                 transition-colors flex items-center gap-2"
             >
               <Icon />
-              <span>{linkinfo.title}</span>
+              <span>{link.title}</span>
             </a>
           );
         })}

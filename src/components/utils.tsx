@@ -1,25 +1,25 @@
 
-export type ExternalLinkProps = Omit<React.ComponentProps<'a'>, "target">;
+import { ReactNode } from "react";
 
-export const ExternalLink: React.FC<ExternalLinkProps> = (props) => {
+export const ExternalLink: React.FC<React.ComponentProps<'a'>> = ({ target, rel, ...props }) => {
   return (
     <a {...props}
-      target="_blank"
-      rel={(props.rel ? props.rel + " " : "") + "noopener noreferrer"}
+      target={target ?? "_blank"}
+      rel={(rel ? rel + " " : "") + "noopener noreferrer"}
     />
   );
 };
 
-export type StyledLinkProps =
-  | (ExternalLinkProps & { isExternal: true; })
-  | (React.ComponentProps<'a'> & { isExternal?: false; });
+export type StyledLinkProps = React.ComponentProps<'a'> & {
+  isExternal?: boolean;
+};
 
 export const StyledLink: React.FC<StyledLinkProps> = ({
   isExternal,
   className,
-  ...baseProps // this seems to break the discrim union
+  ...baseProps
 }) => {
-  const classes = className ?? "underline " + 
+  const classes = className ?? "underline " +
     "text-foreground/70 hover:text-primary/80 transition-colors";
 
   return (
@@ -27,4 +27,8 @@ export const StyledLink: React.FC<StyledLinkProps> = ({
       <ExternalLink {...baseProps} className={classes} /> :
       <a {...baseProps} className={classes} />
   );
+};
+
+export const Bold: React.FC<{ children?: ReactNode }> = ({ children }) => {
+  return <span className={"font-bold text-foreground/55"}>{children}</span>;
 };
