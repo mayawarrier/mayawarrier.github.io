@@ -1,4 +1,5 @@
-import { useState, ReactNode } from "react";
+import { useRef, useLayoutEffect, ReactNode } from "react";
+import { NavLink, Routes, Route, useLocation } from "react-router-dom";
 import { GithubIcon, PlayIcon, GitPullRequestArrowIcon } from "lucide-react";
 import { ProjectTile } from "./project-tile";
 import { Bold } from "./utils";
@@ -189,7 +190,7 @@ const workExperiences: WorkExpInfo[] = [
         {" and associated networking across multiple environments."}
       </>,
     ],
-    dateRange: "June 2024 - Present"
+    dateRange: "June 2024 – Present"
   },
   {
     jobTitle: "Software Engineer (Co-Op)",
@@ -213,7 +214,7 @@ const workExperiences: WorkExpInfo[] = [
           "where previously computations could take tens of minutes or longer."}
       </>
     ],
-    dateRange: "May 2020 - Sep 2021"
+    dateRange: "May 2020 – Sep 2021"
   },
   {
     jobTitle: "Software Engineer Intern",
@@ -293,58 +294,68 @@ const WorkExpTab: React.FC = () => {
   );
 };
 
-enum TabType {
-  PROJECTS = "Projects",
-  WORK_EXP = "WorkExp"
-};
-
 interface TabInfo {
-  type: TabType;
-  name: string;
-  hash: string;
+  path: string;
+  label: string;
   comp: React.FC;
 };
 
-export const Showcase: React.FC = () => {
-  const [activeTabType, setActiveTabType] = useState<TabType>(TabType.PROJECTS);
-
-  const tabs: TabInfo[] = [
-    { type: TabType.PROJECTS, name: "Projects/Open Source", hash: "projects", comp: ProjectsTab },
-    { type: TabType.WORK_EXP, name: "Work Experience", hash: "work-experience", comp: WorkExpTab }
-  ];
-
-  const setActiveTab = (tab: TabInfo) => {
-    window.location.hash = tab.hash;
-    setActiveTabType(tab.type);
-  };
+const TabBar: React.FC<{ tabs: TabInfo[]; defaultTab: TabInfo; }> = ({ tabs, defaultTab }) => {
+  const location = useLocation();
+  const anyTabMatched = tabs.some(tab => location.pathname === tab.path);
 
   return (
-    <div className="h-auto lg:h-full w-full lg:overflow-y-auto">
-
-      {/* tab switcher */}
-      <div className="flex gap-6 sticky top-0 z-10 pt-4 lg:pt-8 px-4 lg:px-8
-        border-b border-foreground/20 bg-muted2 font-medium lg:text-[1.05rem]">
-        {tabs.map((tab, tabIdx) => (
-          <button
+    <div className="flex gap-6 sticky top-0 z-10 pt-4 lg:pt-8 px-4 lg:px-8
+        border-b border-foreground/20 bg-muted2 font-medium lg:text-[1.05rem]"
+    >
+      {tabs.map((tab, tabIdx) => {
+        const isActive = location.pathname === tab.path ||
+          (!anyTabMatched && tab.path === defaultTab.path);
+        return (
+          <NavLink
             key={tabIdx}
+            to={tab.path}
             className={`py-2 relative transition-colors hover:cursor-pointer 
-              ${activeTabType === tab.type ? "text-foreground" : "text-muted-foreground hover:text-foreground"}`}
-            onClick={() => setActiveTab(tab)}
+              ${isActive ? "text-foreground" : "text-muted-foreground hover:text-foreground"}`}
           >
-            {tab.name}
-            {activeTabType === tab.type && <div className="absolute bottom-0 h-px w-full bg-primary" />}
-          </button>
-        ))}
-      </div>
+            {tab.label}
+            {isActive && <div className="absolute bottom-0 h-px w-full bg-primary" />}
+          </NavLink>
+        );
+      })}
+    </div>
+  );
+};
+
+export const Showcase: React.FC = () => {
+  const location = useLocation();
+  const showcaseRef = useRef<HTMLDivElement>(null);
+
+  const tabs: TabInfo[] = [
+    { path: "/projects", label: "Projects/Open Source", comp: ProjectsTab },
+    { path: "/work-experience", label: "Work Experience", comp: WorkExpTab },
+  ];
+  const defaultTab = tabs[0];
+  const DefaultTabComp = defaultTab.comp;
+
+  useLayoutEffect(() => {
+    if (showcaseRef.current && location.pathname && tabs.some(tab => location.pathname === tab.path)) {
+      showcaseRef.current.scrollIntoView();
+    }
+  }, [location.pathname]);
+
+  return (
+    <div id="showcase" ref={showcaseRef}>
+      <TabBar tabs={tabs} defaultTab={defaultTab} />
 
       <div className="pt-4">
-        {tabs.map((tab) => {
-          if (activeTabType !== tab.type) {
-            return null;
-          }
-          const Comp = tab.comp;
-          return <Comp key={tab.name} />;
-        })}
+        <Routes>
+          <Route index element={<DefaultTabComp />} />
+          {tabs.map((tab) => {
+            const Comp = tab.comp;
+            return <Route path={tab.path} element={<Comp />} />;
+          })}
+        </Routes>
       </div>
 
     </div>

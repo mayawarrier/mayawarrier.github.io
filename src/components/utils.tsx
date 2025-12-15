@@ -14,18 +14,14 @@ export type StyledLinkProps = React.ComponentProps<'a'> & {
   isExternal?: boolean;
 };
 
-export const StyledLink: React.FC<StyledLinkProps> = ({
-  isExternal,
-  className,
-  ...baseProps
-}) => {
-  const classes = className ?? "underline " +
+export const StyledLink: React.FC<StyledLinkProps> = ({ isExternal, className, ...props }) => {
+  const classes = (className ? className + " " : "") + "underline " +
     "text-foreground/70 hover:text-primary/80 transition-colors";
 
   return (
     isExternal === true ?
-      <ExternalLink {...baseProps} className={classes} /> :
-      <a {...baseProps} className={classes} />
+      <ExternalLink {...props} className={classes} /> :
+      <a {...props} className={classes} />
   );
 };
 

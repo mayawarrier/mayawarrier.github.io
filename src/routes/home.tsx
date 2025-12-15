@@ -1,17 +1,15 @@
-import { PersonalInfo } from "~/components/personal-info";
+import { Hero } from "~/components/hero";
 import { Showcase } from "~/components/showcase";
 
 export default function Home() {
   return (
-    <main className="min-h-screen">
-      <div className="flex flex-col lg:flex-row lg:h-screen">
-        <div className="flex items-center justify-center h-screen
-           bg-muted/50 py-12 px-4 lg:w-2/5 lg:p-8 lg:overflow-y-hidden">
-          <PersonalInfo />
-        </div>
-        <div className="min-h-screen flex lg:block lg:h-screen lg:w-3/5" id="showcase">
-          <Showcase />
-        </div>
+    <main className="min-h-screen flex flex-col lg:flex-row lg:h-screen">
+      <div className="h-screen lg:w-2/5 lg:overflow-y-hidden">
+        <Hero />
+      </div>
+      <div className="min-h-screen h-auto w-full 
+        lg:block lg:h-screen lg:w-3/5 lg:h-full lg:overflow-y-auto">
+        <Showcase />
       </div>
     </main>
   );

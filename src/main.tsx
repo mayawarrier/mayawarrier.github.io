@@ -1,15 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { HashRouter, Routes, Route, BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
+import Home from "~/routes/home"
 import "./app.css";
-import Home from "./routes/home";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-      </Routes>
-    </BrowserRouter>
+    <HashRouter>
+      <Home />
+    </HashRouter>
   </React.StrictMode>
 );
