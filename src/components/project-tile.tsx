@@ -102,11 +102,11 @@ ProjectTile.DescList = (props) => {
   );
 };
 
-ProjectTile.Desc = (props) => {
+ProjectTile.Desc = ({ text }) => {
   return (
     <p className="text-muted-foreground/80 
         group-hover:text-foreground/60 transition-colors">
-      {props.text}
+      {text}
     </p>
   );
 };

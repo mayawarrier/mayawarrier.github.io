@@ -1,5 +1,5 @@
-import { useRef, useLayoutEffect, ReactNode } from "react";
-import { NavLink, Routes, Route, useLocation } from "react-router-dom";
+import { useRef, useEffect, ReactNode } from "react";
+import { NavLink, Routes, Route, useLocation, useNavigationType } from "react-router-dom";
 import { GithubIcon, PlayIcon, GitPullRequestArrowIcon } from "lucide-react";
 import { ProjectTile } from "./project-tile";
 import { Bold } from "./utils";
@@ -300,35 +300,9 @@ interface TabInfo {
   comp: React.FC;
 };
 
-const TabBar: React.FC<{ tabs: TabInfo[]; defaultTab: TabInfo; }> = ({ tabs, defaultTab }) => {
-  const location = useLocation();
-  const anyTabMatched = tabs.some(tab => location.pathname === tab.path);
-
-  return (
-    <div className="flex gap-6 sticky top-0 z-10 pt-4 lg:pt-8 px-4 lg:px-8
-        border-b border-foreground/20 bg-muted2 font-medium lg:text-[1.05rem]"
-    >
-      {tabs.map((tab, tabIdx) => {
-        const isActive = location.pathname === tab.path ||
-          (!anyTabMatched && tab.path === defaultTab.path);
-        return (
-          <NavLink
-            key={tabIdx}
-            to={tab.path}
-            className={`py-2 relative transition-colors hover:cursor-pointer 
-              ${isActive ? "text-foreground" : "text-muted-foreground hover:text-foreground"}`}
-          >
-            {tab.label}
-            {isActive && <div className="absolute bottom-0 h-px w-full bg-primary" />}
-          </NavLink>
-        );
-      })}
-    </div>
-  );
-};
-
 export const Showcase: React.FC = () => {
   const location = useLocation();
+  const navType = useNavigationType();
   const showcaseRef = useRef<HTMLDivElement>(null);
 
   const tabs: TabInfo[] = [
@@ -338,16 +312,68 @@ export const Showcase: React.FC = () => {
   const defaultTab = tabs[0];
   const DefaultTabComp = defaultTab.comp;
 
-  useLayoutEffect(() => {
-    if (showcaseRef.current && location.pathname && tabs.some(tab => location.pathname === tab.path)) {
-      showcaseRef.current.scrollIntoView();
+  const isValidTabPath = (pathname: string): boolean => {
+    return !!pathname && tabs.some(tab => pathname === tab.path);
+  };
+
+  // hacky hack: reset scroll when navigating between tabs.
+  useEffect(() => {
+    if (showcaseRef.current && navType !== "POP" && isValidTabPath(location.pathname)) {
+      const elem = showcaseRef.current;
+      if (elem.scrollHeight > elem.clientHeight) {
+        elem.scrollTo({ top: 0 });
+      }
+      else {
+        const rect = elem.getBoundingClientRect();
+        const coversEntireViewport = rect.top <= 0 && rect.bottom >= window.innerHeight;
+        if (coversEntireViewport) {
+          elem.scrollIntoView({ block: "start" });
+        }
+      }
     }
-  }, [location.pathname]);
+  }, [location, navType]);
 
+  // hacky hack: scroll the showcase into view if the user visits the site thru a tab link 
+  // (only on first page load)
+  useEffect(() => {
+    if (showcaseRef.current && isValidTabPath(location.pathname)) {
+      const navEntry = performance.getEntriesByType("navigation")[0]; // always one entry
+      const navType = (navEntry as PerformanceNavigationTiming)?.type;
+      if (navType === "navigate") {
+        showcaseRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }
+  }, []);
+
+  const locationIsValid = isValidTabPath(location.pathname);
   return (
-    <div id="showcase" ref={showcaseRef}>
-      <TabBar tabs={tabs} defaultTab={defaultTab} />
+    <div
+      id="showcase"
+      ref={showcaseRef}
+      className="h-full w-full lg:overflow-y-auto"
+    >
+      {/* tab bar */}
+      <div className="flex gap-6 sticky top-0 z-10 pt-4 lg:pt-8 px-4 lg:px-8
+        border-b border-foreground/20 bg-muted2 font-medium lg:text-[1.05rem]"
+      >
+        {tabs.map((tab, tabIdx) => {
+          const isActive = location.pathname === tab.path ||
+            (!locationIsValid && tab.path === defaultTab.path)
+          return (
+            <NavLink
+              key={tabIdx}
+              to={tab.path}
+              className={`py-2 relative transition-colors hover:cursor-pointer 
+              ${isActive ? "text-foreground" : "text-muted-foreground hover:text-foreground"}`}
+            >
+              {tab.label}
+              {isActive && <div className="absolute bottom-0 h-px w-full bg-primary" />}
+            </NavLink>
+          );
+        })}
+      </div>
 
+      {/* content/routes */}
       <div className="pt-4">
         <Routes>
           <Route index element={<DefaultTabComp />} />
