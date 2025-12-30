@@ -15,14 +15,9 @@ export type StyledLinkProps = React.ComponentProps<'a'> & {
 };
 
 export const StyledLink: React.FC<StyledLinkProps> = ({ isExternal, className, ...props }) => {
-  const classes = (className ? className + " " : "") + "underline " +
-    "text-foreground/70 hover:text-primary/80 transition-colors";
-
-  return (
-    isExternal === true ?
-      <ExternalLink {...props} className={classes} /> :
-      <a {...props} className={classes} />
-  );
+  const Comp = isExternal === true ? ExternalLink : 'a';
+  return <Comp {...props} className={(className ? className + " " : "") +
+    "underline text-foreground/70 hover:text-primary/80 transition-colors"} />
 };
 
 export const Bold: React.FC<{ children?: ReactNode }> = ({ children }) => {

@@ -1,4 +1,4 @@
-import { useRef, useEffect, ReactNode } from "react";
+import { useEffect, ReactNode, RefObject } from "react";
 import { NavLink, Routes, Route, useLocation, useNavigationType } from "react-router-dom";
 import { GithubIcon, PlayIcon, GitPullRequestArrowIcon } from "lucide-react";
 import { ProjectTile } from "./project-tile";
@@ -125,7 +125,7 @@ const ProjectsTab: React.FC = () => {
               key={projectIdx}
               title={project.title}
               image={project.image}
-              tileClickUrl={project.liveUrl || project.githubUrl}
+              tileUrl={project.liveUrl || project.githubUrl}
               extLinks={[
                 { label: "Github", icon: GithubIcon, url: project.githubUrl },
                 { label: "Live", icon: PlayIcon, url: project.liveUrl }
@@ -139,7 +139,7 @@ const ProjectsTab: React.FC = () => {
             <ProjectTile
               key={projectIdx}
               title={project.title}
-              tileClickUrl={project.githubUrl}
+              tileUrl={project.githubUrl}
               extLinks={[
                 { label: "Github", icon: GithubIcon, url: project.githubUrl },
                 { label: "PRs", icon: GitPullRequestArrowIcon, url: project.contribsUrl }
@@ -300,10 +300,9 @@ interface TabInfo {
   comp: React.FC;
 };
 
-export const Showcase: React.FC = () => {
+export const Showcase: React.FC<{ ref: RefObject<HTMLDivElement | null> }> = ({ ref }) => {
   const location = useLocation();
   const navType = useNavigationType();
-  const showcaseRef = useRef<HTMLDivElement>(null);
 
   const tabs: TabInfo[] = [
     { path: "/projects", label: "Projects/Open Source", comp: ProjectsTab },
@@ -316,10 +315,10 @@ export const Showcase: React.FC = () => {
     return !!pathname && tabs.some(tab => pathname === tab.path);
   };
 
-  // hacky hack: reset scroll when navigating between tabs.
+  // hack: reset scroll when navigating between tabs.
   useEffect(() => {
-    if (showcaseRef.current && navType !== "POP" && isValidTabPath(location.pathname)) {
-      const elem = showcaseRef.current;
+    if (ref.current && navType !== "POP" && isValidTabPath(location.pathname)) {
+      const elem = ref.current;
       if (elem.scrollHeight > elem.clientHeight) {
         elem.scrollTo({ top: 0 });
       }
@@ -333,14 +332,14 @@ export const Showcase: React.FC = () => {
     }
   }, [location, navType]);
 
-  // hacky hack: scroll the showcase into view if the user visits the site thru a tab link 
-  // (only on first page load)
+  // hack: scroll the showcase into view if the user visits the site thru a tab link 
+  // (only on first page load).
   useEffect(() => {
-    if (showcaseRef.current && isValidTabPath(location.pathname)) {
+    if (ref.current && isValidTabPath(location.pathname)) {
       const navEntry = performance.getEntriesByType("navigation")[0]; // always one entry
       const navType = (navEntry as PerformanceNavigationTiming)?.type;
       if (navType === "navigate") {
-        showcaseRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+        ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
       }
     }
   }, []);
@@ -348,8 +347,7 @@ export const Showcase: React.FC = () => {
   const locationIsValid = isValidTabPath(location.pathname);
   return (
     <div
-      id="showcase"
-      ref={showcaseRef}
+      ref={ref}
       className="h-full w-full lg:overflow-y-auto"
     >
       {/* tab bar */}

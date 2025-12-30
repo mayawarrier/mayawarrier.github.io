@@ -8,7 +8,7 @@ export interface ProjectTileProps {
     url: string;
     alt: string;
   };
-  tileClickUrl: string;
+  tileUrl: string;
   extLinks: {
     label: string;
     icon: LucideIcon;
@@ -33,7 +33,7 @@ export const ProjectTile: ProjectTileFC = (props) => {
     <div className="flex flex-col">
       {/* content */}
       <div
-        onClick={() => window.open(props.tileClickUrl, "_self")}
+        onClick={() => window.location.assign(props.tileUrl)}
         className="flex flex-col space-y-4 group peer px-2 pt-2 lg:px-3 lg:pt-3 pb-9
               hover:bg-muted/60 hover:cursor-pointer transition-colors rounded-lg"
       >
