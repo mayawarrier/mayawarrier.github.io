@@ -9,7 +9,7 @@ export default function Home() {
       <div className="h-svh lg:w-2/5 lg:overflow-y-hidden">
         <Hero showcaseRef={showcaseRef}/>
       </div>
-      <div className="min-h-svh h-auto w-full lg:block lg:h-svh lg:w-3/5 lg:h-full" >
+      <div className="min-h-svh h-auto w-full lg:h-svh lg:w-3/5" >
         <Showcase ref={showcaseRef} />
       </div>
     </main>

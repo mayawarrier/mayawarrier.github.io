@@ -13,11 +13,11 @@ const HeroIconLink: React.FC<HeroIconLinkProps> = (props) => {
   return (
     <ExternalLink
       href={props.href}
-      className="flex items-center justify-center gap-2
+      className="flex items-center justify-center gap-[calc(var(--spacing)*1.5)]
         text-muted-foreground hover:text-accent transition-colors"
     >
-      <Icon className="h-[1.2rem] w-[1.2rem] xl:h-[1.25rem] xl:w-[1.25rem]" />
-      <span className="text-[1.075rem] xl:text-[1.175rem]">{props.title}</span>
+      <Icon className="h-[1.1rem] w-[1.1rem]" />
+      <span className="text-[1.075rem]">{props.title}</span>
     </ExternalLink>
   );
 }
@@ -50,24 +50,26 @@ export const Hero: React.FC<{ showcaseRef: RefObject<HTMLDivElement | null> }> =
         </div>
 
         <div className="flex flex-col gap-3">
-          <div className="flex flex-row items-center justify-center lg:justify-normal gap-4">
+          <div className="flex items-center justify-center lg:justify-normal gap-5">
             <HeroIconLink title="GitHub" href="https://github.com/mayawarrier" icon={GithubIcon} />
             <HeroIconLink title="LinkedIn" href="https://www.linkedin.com/in/mayawarrier/" icon={LinkedinIcon} />
+            <span />
           </div>
 
-          <div className="flex justify-center lg:justify-normal">
+          <div className="flex items-center justify-center lg:justify-normal gap-5">
             <HeroIconLink title="Resume" href="/resume.pdf" icon={FileTextIcon} />
+            <span />
           </div>
         </div>
 
         <div className="lg:hidden w-full flex items-center justify-center">
           <button className="flex items-center justify-center gap-1 p-2 w-4/5
-            border-1 border-primary/30 text-md text-primary font-medium rounded-md text-sm
+            border-1 border-primary/30 text-primary font-medium rounded-md
             hover:text-primary/80 hover:border-primary/50 transition-colors
             hover:cursor-pointer"
             onClick={() => showcaseRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })}
           >
-            <span className="w-5" />
+            <ChevronDownIcon className="h-5 w-5" />
             <span>See More</span>
             <ChevronDownIcon className="h-5 w-5" />
           </button>

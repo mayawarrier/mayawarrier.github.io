@@ -42,12 +42,12 @@ const projects: ShowcaseProjectInfo[] = [
       "part of GCC 12, MySQL, Redis, WebKit, and all major web browsers (Microsoft Edge, Google Chrome, Opera, and Safari).",
     contributions: [
       <>
-        {"Wrote the new integer parser, which is among the "}
-        <span className="font-bold">{"fastest"}</span>
-        {" C++ integer parsers in "}
+        {"Wrote the new from_chars() integer parser with speeds of over 850MB/s - over "}
+        <Bold>{"3 times faster than Microsoft's"}</Bold>{" version, and one of the fastest integer parsers "}
+        {"in the standard library (see "}
         <ProjectTile.Link href="https://github.com/alugowski/parse-bench?tab=readme-ov-file#results" isExternal>
           {"benchmarks"}
-        </ProjectTile.Link>{", and is about 2-3x faster than Microsoft's from_chars() implementation."}
+        </ProjectTile.Link>{" )."}
       </>,
       "Improved floating-point parsing performance by 10% for Unicode (UTF-16) strings using x86 SIMD.",
       "Added support for the JSON numeric format (compliant to RFC 8259).",
@@ -176,19 +176,13 @@ const workExperiences: WorkExpInfo[] = [
         {", closely matching the performance of an external vendor solution costing "}<Bold>{"millions of dollars annually."}</Bold>
       </>,
       <>
-        {"Designed and developed the new "}<Bold>{".NET"}</Bold>{"-based"}
-        {" report loader powering all new reports for a major Life Insurance product. The system was delivered end-to-end in 6 months " +
-          "and sped up project delivery by 3 months, receiving "}<Bold>{"CIO-level recognition."}</Bold>
+        {"Designed and built a new report loader that powers "}<Bold>{"all new reports"}</Bold>{" for a major Life Insurance product. The system was "}
+        {"delivered "}<Bold>{"end-to-end in 6 months"}</Bold>{" and sped up project delivery by 3 months, receiving CIO-level recognition."}
       </>,
       <>
-        {"Worked on a consumer-facing web app serving thousands of users in North America, developing and shipping features using "}
-        <Bold>{"TypeScript, React, Node.js, and Express."}</Bold>
-      </>,
-      <>
-        {"Worked on cloud infrastructure, using "}<Bold>{"Terraform"}</Bold>{" to maintain and evolve shared "}
-        <Bold>{"Azure"}</Bold>{" resources including "}<Bold>{"Redis"}</Bold>{" caches, "}<Bold>{"MongoDB"}</Bold>{" instances"}
-        {" and associated networking across multiple environments."}
-      </>,
+        {"Built new features in React + Node and "}<Bold>{"maintained critical Azure"}</Bold>{" cloud infrastructure like Redis caches and MongoDB instances "}
+        {"for a consumer-facing web app to onboard new insurance customers, serving thousands of users in Canada."}
+      </>
     ],
     dateRange: "June 2024 – Present"
   },
@@ -201,17 +195,16 @@ const workExperiences: WorkExpInfo[] = [
         <Bold>{".NET, WPF"}</Bold>{" and "}<Bold>{"C++/CUDA."}</Bold>
       </>,
       <>
-        {"Built our in-house JSON library, using "}<Bold>{".NET IL"}</Bold>
-        {" (intermediate assembly language) to autogenerate fast serialization code for any class."}
+        {"Built a new Undo/Redo system that works by generating the minimum diff between two object hierarchies "}
+        {"(similar to React's VDOM diffing algorithm), eliminating the need to manually implement undo/redo logic for every change."}
       </>,
       <>
-        {"Designed an "}<Bold>{"automated Undo/Redo"}</Bold>{" system that worked by comparing differences between two application states " +
-          "(similar to React), eliminating the need to manually implement undo/redo logic for every change."}
+        {"Built our in-house JSON library, using "}<Bold>{".NET IL"}</Bold>{" (intermediate assembly language) to autogenerate fast serialization code."}
       </>,
       <>
-        {"Optimized the "}<Bold>{"C++/CUDA"}</Bold>
-        {" compute engine by extracting field-point computations into a dedicated solver. This enabled interactive field-point changes " +
-          "where previously computations could take tens of minutes or longer."}
+        {"Optimized the "}<Bold>{"C++/CUDA"}</Bold>{" compute engine by extracting field-point computations into a dedicated solver. "}
+        {"This enabled "}<Bold>{"interactive speeds"}</Bold>{" where "}<Bold>{"previously"}</Bold>{" computations could take "}
+        <Bold>{"tens of minutes "}</Bold>{" or longer."}
       </>
     ],
     dateRange: "May 2020 – Sep 2021"
@@ -237,11 +230,8 @@ const workExperiences: WorkExpInfo[] = [
         {"Co-developed "}<Bold>{"\"city-builder\""}</Bold>{" in "}<Bold>{"Unity3D"}</Bold>
         {", a cross-platform tool for urban planning and civil engineering research."}
       </>,
-      <>
-        {"Designed a "}<Bold>{"JSON-based"}</Bold>
-        {" file format and supporting APIs to represent cities, roads, and lanes, and to customize " +
-          "their sizes, types, signage etc."}
-      </>
+      "Designed a custom file format and supporting APIs to represent cities, roads, and lanes, and " +
+      "to customize their sizes, types, signage etc."
     ],
     dateRange: "Dec 2017 – Jan 2019"
   }
