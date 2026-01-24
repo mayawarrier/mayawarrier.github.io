@@ -2,23 +2,30 @@ import { RefObject } from "react";
 import { LucideIcon, GithubIcon, LinkedinIcon, ChevronDownIcon, FileTextIcon } from "lucide-react";
 import { ExternalLink } from "./utils";
 
-interface HeroIconLinkProps {
+interface HeroLinkProps {
   href: string;
   title: string;
   icon: LucideIcon;
 };
 
-const HeroIconLink: React.FC<HeroIconLinkProps> = (props) => {
-  const Icon = props.icon;
+const HeroLinkArray: React.FC<{ links: HeroLinkProps[] }> = ({ links }) => {
   return (
-    <ExternalLink
-      href={props.href}
-      className="flex items-center justify-center gap-[calc(var(--spacing)*1.5)]
-        text-muted-foreground hover:text-accent transition-colors"
-    >
-      <Icon className="h-[1.1rem] w-[1.1rem]" />
-      <span className="text-[1.075rem]">{props.title}</span>
-    </ExternalLink>
+    <div className="flex items-center justify-center lg:justify-normal gap-10 lg:gap-4">
+      {links.map((link, linkIndex) => {
+        const Icon = link.icon;
+        return (
+          <ExternalLink
+            key={linkIndex}
+            href={link.href}
+            className="flex items-center justify-center relative lg:static
+              gap-[calc(var(--spacing)*1.5)] text-muted-foreground hover:text-accent transition-colors"
+          >
+            <Icon className="h-[1.1rem] w-[1.1rem] absolute -left-[1.5rem] lg:static" />
+            <span className="text-[1.075rem]">{link.title}</span>
+          </ExternalLink>
+        );
+      })}
+    </div>
   );
 }
 
@@ -50,16 +57,13 @@ export const Hero: React.FC<{ showcaseRef: RefObject<HTMLDivElement | null> }> =
         </div>
 
         <div className="flex flex-col gap-3">
-          <div className="flex items-center justify-center lg:justify-normal gap-5">
-            <HeroIconLink title="GitHub" href="https://github.com/mayawarrier" icon={GithubIcon} />
-            <HeroIconLink title="LinkedIn" href="https://www.linkedin.com/in/mayawarrier/" icon={LinkedinIcon} />
-            <span />
-          </div>
-
-          <div className="flex items-center justify-center lg:justify-normal gap-5">
-            <HeroIconLink title="Resume" href="/resume.pdf" icon={FileTextIcon} />
-            <span />
-          </div>
+          <HeroLinkArray links={[
+            { title: "GitHub", href: "https://github.com/mayawarrier", icon: GithubIcon },
+            { title: "LinkedIn", href: "https://www.linkedin.com/in/mayawarrier/", icon: LinkedinIcon }
+          ]} />
+          <HeroLinkArray links={[
+            { title: "Resume", href: "/resume.pdf", icon: FileTextIcon }
+          ]} />
         </div>
 
         <div className="lg:hidden w-full flex items-center justify-center">
@@ -69,9 +73,10 @@ export const Hero: React.FC<{ showcaseRef: RefObject<HTMLDivElement | null> }> =
             hover:cursor-pointer"
             onClick={() => showcaseRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })}
           >
-            <ChevronDownIcon className="h-5 w-5" />
-            <span>See More</span>
-            <ChevronDownIcon className="h-5 w-5" />
+            <span className="flex items-center relative">
+              <span>See More</span>
+              <ChevronDownIcon className="h-5 w-5 absolute -right-6" />
+            </span>
           </button>
         </div>
       </div>
