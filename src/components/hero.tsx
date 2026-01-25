@@ -1,39 +1,14 @@
 import { RefObject } from "react";
-import { LucideIcon, GithubIcon, LinkedinIcon, ChevronDownIcon, FileTextIcon } from "lucide-react";
+import { GithubIcon, LinkedinIcon, ChevronDownIcon, FileTextIcon } from "lucide-react";
 import { ExternalLink } from "./utils";
-
-interface HeroLinkProps {
-  href: string;
-  title: string;
-  icon: LucideIcon;
-};
-
-const HeroLinkArray: React.FC<{ links: HeroLinkProps[] }> = ({ links }) => {
-  return (
-    <div className="flex items-center justify-center lg:justify-normal gap-10 lg:gap-4">
-      {links.map((link, linkIndex) => {
-        const Icon = link.icon;
-        return (
-          <ExternalLink
-            key={linkIndex}
-            href={link.href}
-            className="flex items-center justify-center relative lg:static
-              gap-[calc(var(--spacing)*1.5)] text-muted-foreground hover:text-accent transition-colors"
-          >
-            <Icon className="h-[1.1rem] w-[1.1rem] absolute -left-[1.5rem] lg:static" />
-            <span className="text-[1.075rem]">{link.title}</span>
-          </ExternalLink>
-        );
-      })}
-    </div>
-  );
-}
 
 export const Hero: React.FC<{ showcaseRef: RefObject<HTMLDivElement | null> }> = ({ showcaseRef }) => {
   return (
-    <div className="h-full w-full flex items-center justify-center py-12 px-4 lg:p-8 bg-muted/50">
+    <div className="flex items-center justify-center h-full w-full py-12 px-4 lg:p-8 bg-muted/50">
 
-      <div className="max-w-xl space-y-8 xl:space-y-12 text-center lg:text-left">
+      <div className="flex flex-col items-center lg:items-start 
+        max-w-xl space-y-8 xl:space-y-12 text-center lg:text-left">
+
         <div className="space-y-6">
           <div className="space-y-6">
             <h1 className="text-6xl xl:text-7xl font-bold tracking-tight">
@@ -56,14 +31,26 @@ export const Hero: React.FC<{ showcaseRef: RefObject<HTMLDivElement | null> }> =
           </div>
         </div>
 
-        <div className="flex flex-col gap-3">
-          <HeroLinkArray links={[
+        <div className="flex items-center justify-center lg:justify-start gap-4 w-3/4">
+          {[
             { title: "GitHub", href: "https://github.com/mayawarrier", icon: GithubIcon },
-            { title: "LinkedIn", href: "https://www.linkedin.com/in/mayawarrier/", icon: LinkedinIcon }
-          ]} />
-          <HeroLinkArray links={[
+            { title: "LinkedIn", href: "https://www.linkedin.com/in/mayawarrier/", icon: LinkedinIcon },
             { title: "Resume", href: "/resume.pdf", icon: FileTextIcon }
-          ]} />
+          ].map((link, linkIndex) => {
+            const Icon = link.icon;
+            return (
+              <ExternalLink
+                key={linkIndex}
+                href={link.href}
+                className="flex-1 lg:flex-none flex flex-col lg:flex-row 
+                  items-center justify-center gap-x-[calc(var(--spacing)*1.5)] gap-y-1 
+                  text-muted-foreground hover:text-accent transition-colors"
+              >
+                <Icon className="h-[1.1rem] w-[1.1rem]" />
+                <span className="text-[1.075rem]">{link.title}</span>
+              </ExternalLink>
+            );
+          })}
         </div>
 
         <div className="lg:hidden w-full flex items-center justify-center">
