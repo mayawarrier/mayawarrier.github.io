@@ -7,9 +7,9 @@ export const Hero: React.FC<{ showcaseRef: RefObject<HTMLDivElement | null> }> =
     <div className="flex items-center justify-center h-full w-full py-12 px-4 lg:p-8 bg-muted/50">
 
       <div className="flex flex-col items-center lg:items-start 
-        max-w-xl space-y-8 xl:space-y-12 text-center lg:text-left">
+        max-w-xl gap-8 xl:gap-12 text-center lg:text-left">
 
-        <div className="space-y-6">
+        <div className="flex flex-col gap-6">
           <div className="space-y-6">
             <h1 className="text-6xl xl:text-7xl font-bold tracking-tight">
               Maya Warrier
@@ -21,7 +21,8 @@ export const Hero: React.FC<{ showcaseRef: RefObject<HTMLDivElement | null> }> =
 
           <div className="mx-auto lg:mx-0 h-px w-20 bg-primary/30" />
 
-          <div className="text-[1.2rem] xl:text-[1.32rem] 
+          {/* hack: hide on landscape mobile screens (< 500px) */}
+          <div className="hidden [@media(min-height:500px)]:block text-[1.2rem] xl:text-[1.32rem] 
             text-muted-foreground leading-relaxed font-light space-y-8">
             <p>
               Passionate about GPU acceleration, 3D graphics, and high-performance systems.
