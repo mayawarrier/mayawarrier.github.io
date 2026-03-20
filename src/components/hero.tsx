@@ -1,32 +1,31 @@
 import { RefObject } from "react";
 import { GithubIcon, LinkedinIcon, ChevronDownIcon, FileTextIcon } from "lucide-react";
 import { ExternalLink } from "./utils";
+import resumePdfUrl from "../assets/resume.pdf?url";
 
 export const Hero: React.FC<{ showcaseRef: RefObject<HTMLDivElement | null> }> = ({ showcaseRef }) => {
   return (
-    <div className="flex items-center justify-center h-full w-full py-12 px-4 lg:p-8 bg-muted/50">
+    <div className="flex items-center justify-center h-full w-full py-12 px-4 lg:p-8 bg-hero-mobile-bg lg:bg-hero-bg">
 
-      <div className="flex flex-col items-center lg:items-start 
-        max-w-xl gap-8 xl:gap-12 text-center lg:text-left">
-
+      <div className="flex flex-col items-center lg:items-start max-w-xl gap-8 xl:gap-12 text-center lg:text-left">
         <div className="flex flex-col gap-6">
           <div className="space-y-6">
             <h1 className="text-6xl xl:text-7xl font-bold tracking-tight">
               Maya Warrier
             </h1>
-            <p className="text-2xl xl:text-3xl text-primary font-light">
+            <p className="text-2xl xl:text-3xl text-primary font-hero-subtitle-wt">
               Software Engineer
             </p>
           </div>
 
           <div className="mx-auto lg:mx-0 h-px w-20 bg-primary/30" />
 
-          {/* hack: hide on landscape mobile screens (< 500px) */}
-          <div className="hidden [@media(min-height:500px)]:block text-[1.2rem] xl:text-[1.32rem] 
-            text-muted-foreground leading-relaxed font-light space-y-8">
+          {/* hack: hide on landscape mobile screens (< 550px) */}
+          <div className="hidden [@media(min-height:550px)]:block text-[1.2rem] xl:text-[1.32rem] 
+            text-muted-foreground leading-relaxed font-hero-wt space-y-8">
             <p>
-              Passionate about GPU acceleration, 3D graphics, and high-performance systems.
-              Building consumer-facing web applications and cloud infrastructure @ Manulife.
+              Software Engineer focused on 3D graphics, high-performance systems, and game development.
+              Building a real-time 3D map renderer in OpenGL in my free time. Currently at Manulife.
             </p>
             <p>UofT Computer Engineering '24.</p>
           </div>
@@ -36,7 +35,7 @@ export const Hero: React.FC<{ showcaseRef: RefObject<HTMLDivElement | null> }> =
           {[
             { title: "GitHub", href: "https://github.com/mayawarrier", icon: GithubIcon },
             { title: "LinkedIn", href: "https://www.linkedin.com/in/mayawarrier/", icon: LinkedinIcon },
-            { title: "Resume", href: "/resume.pdf", icon: FileTextIcon }
+            { title: "Resume", href: resumePdfUrl, icon: FileTextIcon }
           ].map((link, linkIndex) => {
             const Icon = link.icon;
             return (

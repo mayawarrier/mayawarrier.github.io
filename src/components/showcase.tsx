@@ -1,8 +1,11 @@
 import { useEffect, ReactNode, RefObject } from "react";
 import { NavLink, Routes, Route, useLocation, useNavigationType } from "react-router-dom";
 import { GithubIcon, PlayIcon, GitPullRequestArrowIcon } from "lucide-react";
-import { ProjectTile } from "./project-tile";
+import { ShowcaseTile } from "./showcase-tile";
 import { Bold } from "./utils";
+import opengl3dcityImgUrl from "../assets/opengl-3dcity.png?url";
+import spaceInvadersImgUrl from "../assets/space-invaders.png?url";
+import fpgaRaytracingImgUrl from "../assets/fpga-raytracing.png?url";
 
 enum ProjectType {
   PROJECT = "Project",
@@ -45,9 +48,9 @@ const projects: ShowcaseProjectInfo[] = [
         {"Wrote the new from_chars() integer parser with speeds of over 850MB/s - over "}
         <Bold>{"3 times faster than Microsoft's"}</Bold>{" version, and one of the fastest integer parsers "}
         {"in the standard library (see "}
-        <ProjectTile.Link href="https://github.com/alugowski/parse-bench?tab=readme-ov-file#results" isExternal>
+        <ShowcaseTile.Link href="https://github.com/alugowski/parse-bench?tab=readme-ov-file#results" isExternal>
           {"benchmarks"}
-        </ProjectTile.Link>{" )."}
+        </ShowcaseTile.Link>{")."}
       </>,
       "Improved floating-point parsing performance by 10% for Unicode (UTF-16) strings using x86 SIMD.",
       "Added support for the JSON numeric format (compliant to RFC 8259).",
@@ -59,10 +62,10 @@ const projects: ShowcaseProjectInfo[] = [
     type: ProjectType.PROJECT,
     title: "3D Mapper",
     description:
-      "Interactive 3D map viewer using real-world data, running in my OpenGL-based 3D engine. " +
-      "I'm currently working on increasing map accuracy and adding support for textures and lighting.",
+      "Interactive 3D map viewer using real-world data from OpenStreetMap, running in my OpenGL-based 3D engine. " +
+      "Actively working on improving map accuracy, textures and lighting.",
     image: {
-      url: "/opengl-3dcity.png",
+      url: opengl3dcityImgUrl,
       alt: "3D map of Toronto from an aerial view, showing buildings and roads."
     },
     githubUrl: "https://github.com/mayawarrier/opengl_3dcity",
@@ -71,10 +74,10 @@ const projects: ShowcaseProjectInfo[] = [
     type: ProjectType.PROJECT,
     title: "Space Invaders Emulator",
     description:
-      "Emulation of the classic Space Invaders arcade cabinet. Behaves like a virtual machine, running the game's " +
+      "Emulation of the Space Invaders arcade cabinet. Behaves like a virtual machine, running the game's " +
       "original 1978 binary on a simulated Intel 8080 CPU. Can run natively or in a browser (thanks to WASM).",
     image: {
-      url: "/space-invaders.png",
+      url: spaceInvadersImgUrl,
       alt: "Rows of aliens from the Space Invaders game on a black background."
     },
     githubUrl: "https://github.com/mayawarrier/space_invaders_emulator",
@@ -87,9 +90,9 @@ const projects: ShowcaseProjectInfo[] = [
       "A 3D renderer core for the DE1-SoC FPGA (in simple terms: a mini GPU). Features a fully-pipelined triangle " +
       "intersection unit, a small cache, and an SDRAM reader that reads data over an Avalon-MM bus. The FPGA's onboard " +
       "ARM processor runs our Linux device driver and a simple TCP server for remote control of the core " +
-      "over any network. The images above were produced by our core.",
+      "over any network.",
     image: {
-      url: "/fpga-raytracing.png",
+      url: fpgaRaytracingImgUrl,
       alt: "Rendered images of a jeep and a shoe produced by the 3D renderer core. " +
         "Reflections of the jeep can be seen on the ground."
     },
@@ -99,7 +102,7 @@ const projects: ShowcaseProjectInfo[] = [
     type: ProjectType.PROJECT,
     title: "Intel 8080 Emulator",
     description:
-      "Intel 8080 CPU emulator and disassembler written in C89/ANSI C. Is optionally freestanding i.e. can run without " +
+      "Intel 8080 CPU emulator and disassembler written in C89/ANSI C. Optionally freestanding i.e. can run without " +
       "a host operating system. Supports the entire 8080 instruction set (including undocumented instructions), as well as " +
       "interrupts and I/O operations.",
     githubUrl: "https://github.com/mayawarrier/intel8080-emulator",
@@ -109,7 +112,7 @@ const projects: ShowcaseProjectInfo[] = [
     title: "SI-JSON Library",
     description:
       "An experimental header-only JSON library designed to be as extensible as possible, with support for Unicode, custom allocators, " +
-      "and user-defined pointers (like those from Boost.Interprocess), while remaining backwards-compatible upto C++11. Features a custom " +
+      "and user-defined pointers (like those from Boost.Interprocess), while remaining backwards-compatible up to C++11. Features a custom " +
       "short-string optimized string type that can store up to 31 characters without any heap allocations.",
     githubUrl: "https://github.com/mayawarrier/si-json",
   }
@@ -121,7 +124,7 @@ const ProjectsTab: React.FC = () => {
       {projects.map((project, projectIdx) => {
         if (project.type === ProjectType.PROJECT) {
           return (
-            <ProjectTile
+            <ShowcaseTile
               key={projectIdx}
               title={project.title}
               image={project.image}
@@ -131,12 +134,12 @@ const ProjectsTab: React.FC = () => {
                 { label: "Live", icon: PlayIcon, url: project.liveUrl }
               ]}
             >
-              <ProjectTile.Desc text={project.description} />
-            </ProjectTile>
+              <ShowcaseTile.Desc text={project.description} />
+            </ShowcaseTile>
           );
         } else {
           return (
-            <ProjectTile
+            <ShowcaseTile
               key={projectIdx}
               title={project.title}
               tileUrl={project.githubUrl}
@@ -145,12 +148,12 @@ const ProjectsTab: React.FC = () => {
                 { label: "PRs", icon: GitPullRequestArrowIcon, url: project.contribsUrl }
               ]}
             >
-              <ProjectTile.Desc text={project.description} />
-              <ProjectTile.DescList
+              <ShowcaseTile.Desc text={project.description} />
+              <ShowcaseTile.DescList
                 title={"My contributions:"}
                 items={project.contributions}
               />
-            </ProjectTile>
+            </ShowcaseTile>
           );
         }
       })}
@@ -172,16 +175,17 @@ const workExperiences: WorkExpInfo[] = [
     bullets: [
       <>
         {"Co-designed and implemented our in-house "}<Bold>{"GPU-accelerated"}</Bold>
-        {" liability valuation engine using "}<Bold>{"Python"}</Bold>{" and Numba "}<Bold>{"CUDA"}</Bold>
-        {", closely matching the performance of an external vendor solution costing "}<Bold>{"millions of dollars annually."}</Bold>
+        {" liability valuation engine using Python and Numba "}<Bold>{"CUDA"}</Bold>
+        {", matching the performance of an external vendor solution costing "}<Bold>{"millions of dollars annually."}</Bold>
       </>,
       <>
-        {"Designed and built a new report loader that powers "}<Bold>{"all new reports"}</Bold>{" for a major Life Insurance product. The system was "}
-        {"delivered "}<Bold>{"end-to-end in 6 months"}</Bold>{" and sped up project delivery by 3 months, receiving CIO-level recognition."}
+        {"Designed and built a report loader service powering "}<Bold>{"all new reports"}</Bold>{" for a major Life Insurance product — "}
+        {"delivered "}<Bold>{"end-to-end in 6 months"}</Bold>{", speeding up project delivery by "}<Bold>{"3 months"}</Bold>{", and earning "}
+        {"an internal award from the CIO and CTO."}
       </>,
       <>
-        {"Built new features in React + Node and "}<Bold>{"maintained critical Azure"}</Bold>{" cloud infrastructure like Redis caches and MongoDB instances "}
-        {"for a consumer-facing web app to onboard new insurance customers, serving thousands of users in Canada."}
+        {"Built new features in React + Node and maintained critical Azure cloud infrastructure (including Redis caches and "}
+        {"MongoDB instances) for a consumer-facing web app to onboard new insurance customers, serving "}<Bold>{"thousands of users"}</Bold>{" in Canada."}
       </>
     ],
     dateRange: "June 2024 – Present"
@@ -191,7 +195,7 @@ const workExperiences: WorkExpInfo[] = [
     company: "Rocscience",
     bullets: [
       <>
-        {"Co-developed the core library for Rocscience’s then upcoming line of 2D geotechnical CAD software using "}
+        {"Co-developed the core library for Rocscience’s new line of 2D geotechnical CAD software using "}
         <Bold>{".NET, WPF"}</Bold>{" and "}<Bold>{"C++/CUDA."}</Bold>
       </>,
       <>
@@ -227,7 +231,7 @@ const workExperiences: WorkExpInfo[] = [
     company: "University of Toronto",
     bullets: [
       <>
-        {"Co-developed "}<Bold>{"\"city-builder\""}</Bold>{" in "}<Bold>{"Unity3D"}</Bold>
+        {"Co-developed "}<Bold>{"city-builder"}</Bold>{" in "}<Bold>{"Unity3D"}</Bold>
         {", a cross-platform tool for urban planning and civil engineering research."}
       </>,
       "Designed a custom file format and supporting APIs to represent cities, roads, and lanes, and " +
@@ -251,8 +255,10 @@ const WorkExpTab: React.FC = () => {
   return (
     <div className="px-2 lg:px-5 pt-3">
       {workExperiences.map((workExp, workExpIdx) => (
-        <div key={workExpIdx} className="flex flex-col">
-
+        <div 
+          key={workExpIdx} 
+          className="flex flex-col"
+        >
           <div className="flex flex-col space-y-3 px-2 lg:px-3 pb-8">
             {/* title, subtitle, dates*/}
             <div className="flex flex-col md:hidden space-y-0.5 p-1">
@@ -334,25 +340,23 @@ export const Showcase: React.FC<{ ref: RefObject<HTMLDivElement | null> }> = ({ 
     }
   }, []);
 
-  const locationIsValid = isValidTabPath(location.pathname);
+  const curPathIsValid = isValidTabPath(location.pathname);
   return (
-    <div
-      ref={ref}
-      className="h-full w-full lg:overflow-y-auto"
-    >
+    <div ref={ref} className="h-full w-full lg:overflow-y-auto">
       {/* tab bar */}
-      <div className="flex gap-6 sticky top-0 z-10 pt-4 lg:pt-8 px-4 lg:px-8
-        border-b border-foreground/20 bg-muted2 font-medium lg:text-[1.05rem]"
+      <div 
+        className="flex gap-6 sticky top-0 z-10 pt-4 lg:pt-8 px-4 lg:px-8
+        border-b border-foreground/20 bg-tab-bar-bg font-medium lg:text-[1.05rem]"
       >
         {tabs.map((tab, tabIdx) => {
-          const isActive = location.pathname === tab.path ||
-            (!locationIsValid && tab.path === defaultTab.path)
+          const isActive = location.pathname === tab.path || 
+            (!curPathIsValid && tab.path === defaultTab.path);
           return (
             <NavLink
               key={tabIdx}
               to={tab.path}
               className={`py-2 relative transition-colors hover:cursor-pointer 
-              ${isActive ? "text-foreground" : "text-muted-foreground hover:text-foreground"}`}
+                ${isActive ? "text-foreground" : "text-muted-foreground hover:text-foreground"}`}
             >
               {tab.label}
               {isActive && <div className="absolute bottom-0 h-px w-full bg-primary" />}
@@ -362,7 +366,7 @@ export const Showcase: React.FC<{ ref: RefObject<HTMLDivElement | null> }> = ({ 
       </div>
 
       {/* content/routes */}
-      <div className="pt-4">
+      <div className="pt-4 bg-showcase-bg">
         <Routes>
           <Route index element={<DefaultTabComp />} />
           {tabs.map((tab) => {
@@ -371,7 +375,6 @@ export const Showcase: React.FC<{ ref: RefObject<HTMLDivElement | null> }> = ({ 
           })}
         </Routes>
       </div>
-
     </div>
   );
 };

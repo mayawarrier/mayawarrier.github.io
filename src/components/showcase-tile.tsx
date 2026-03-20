@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import { LucideIcon } from "lucide-react";
 import { StyledLink, StyledLinkProps, ExternalLink } from "./utils";
 
-export interface ProjectTileProps {
+export interface ShowcaseTileProps {
   title: string;
   image?: {
     url: string;
@@ -17,7 +17,7 @@ export interface ProjectTileProps {
   children?: ReactNode;
 };
 
-export interface ProjectTileFC extends React.FC<ProjectTileProps> {
+export interface ShowcaseTileFC extends React.FC<ShowcaseTileProps> {
   DescList: React.FC<{
     title: string;
     items: ReactNode[];
@@ -28,14 +28,14 @@ export interface ProjectTileFC extends React.FC<ProjectTileProps> {
   Link: React.FC<StyledLinkProps>;
 };
 
-export const ProjectTile: ProjectTileFC = (props) => {
+export const ShowcaseTile: ShowcaseTileFC = (props) => {
   return (
     <div className="flex flex-col">
       {/* content */}
       <div
         onClick={() => window.location.assign(props.tileUrl)}
         className="flex flex-col space-y-4 group peer px-2 pt-2 lg:px-3 lg:pt-3 pb-9
-              hover:bg-muted/60 hover:cursor-pointer transition-colors rounded-lg"
+              hover:bg-showcase-hover-bg hover:cursor-pointer transition-colors rounded-lg"
       >
         {props.image && (
           <img
@@ -64,7 +64,8 @@ export const ProjectTile: ProjectTileFC = (props) => {
                     onClick={(e) => e.stopPropagation()}
                     className="flex flex-row items-center justify-center gap-1 py-1 px-2
                         text-muted-foreground border-muted-foreground/30 border-1 rounded-md 
-                        hover:text-accent hover:border-accent transition-colors">
+                        hover:text-accent hover:border-accent transition-colors"
+                  >
                     <Icon className="h-4 w-4" />
                     <span className="hidden lg:block">{extLink.label}</span>
                   </ExternalLink>
@@ -88,7 +89,7 @@ export const ProjectTile: ProjectTileFC = (props) => {
   );
 };
 
-ProjectTile.DescList = (props) => {
+ShowcaseTile.DescList = (props) => {
   return (
     <div className="space-y-2 text-muted-foreground/80
         group-hover:text-foreground/60 transition-colors">
@@ -102,7 +103,7 @@ ProjectTile.DescList = (props) => {
   );
 };
 
-ProjectTile.Desc = ({ text }) => {
+ShowcaseTile.Desc = ({ text }) => {
   return (
     <p className="text-muted-foreground/80 
         group-hover:text-foreground/60 transition-colors">
@@ -111,7 +112,7 @@ ProjectTile.Desc = ({ text }) => {
   );
 };
 
-ProjectTile.Link = ({ onClick, ...props }) => {
+ShowcaseTile.Link = ({ onClick, ...props }) => {
   return (
     <StyledLink {...props} onClick={(e) => {
       e.stopPropagation();
