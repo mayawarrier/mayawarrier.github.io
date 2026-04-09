@@ -3,7 +3,7 @@ import { NavLink, Routes, Route, useLocation, useNavigationType } from "react-ro
 import { GithubIcon, PlayIcon, GitPullRequestArrowIcon } from "lucide-react";
 import { ShowcaseTile } from "./showcase-tile";
 import { Bold } from "./utils";
-import opengl3dcityImgUrl from "../assets/opengl-3dcity.png?url";
+import opengl3dcityImgUrl from "../assets/opengl-3dcity.jpg?url";
 import spaceInvadersImgUrl from "../assets/space-invaders.png?url";
 import fpgaRaytracingImgUrl from "../assets/fpga-raytracing.png?url";
 
@@ -60,13 +60,14 @@ const projects: ShowcaseProjectInfo[] = [
   },
   {
     type: ProjectType.PROJECT,
-    title: "3D Mapper",
+    title: "3D City Renderer",
     description:
-      "Interactive 3D map viewer using real-world data from OpenStreetMap, running in my OpenGL-based 3D engine. " +
+      "Interactive 3D city renderer using real-world data from OpenStreetMap, running in my OpenGL-based 3D engine. " +
       "Actively working on improving map accuracy, textures and lighting.",
     image: {
       url: opengl3dcityImgUrl,
-      alt: "3D map of Toronto from an aerial view, showing buildings and roads."
+      alt: "On the left, a 3D map of London with the river Thames passing through. " +
+        "On the right, a 3D map of downtown Toronto."
     },
     githubUrl: "https://github.com/mayawarrier/opengl_3dcity",
   },
@@ -85,7 +86,7 @@ const projects: ShowcaseProjectInfo[] = [
   },
   {
     type: ProjectType.PROJECT,
-    title: "FPGA 3D Renderer Core",
+    title: "3D Renderer FPGA Core",
     description:
       "A 3D renderer core for the DE1-SoC FPGA (in simple terms: a mini GPU). Features a fully-pipelined triangle " +
       "intersection unit, a small cache, and an SDRAM reader that reads data over an Avalon-MM bus. The FPGA's onboard " +

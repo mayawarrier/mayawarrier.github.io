@@ -24,8 +24,9 @@ export const Hero: React.FC<{ showcaseRef: RefObject<HTMLDivElement | null> }> =
           <div className="hidden [@media(min-height:550px)]:block text-[1.2rem] xl:text-[1.32rem] 
             text-muted-foreground leading-relaxed font-hero-wt space-y-8">
             <p>
-              Software Engineer focused on 3D graphics, high-performance systems, and game development.
-              Building a real-time 3D map renderer in OpenGL in my free time. Currently at Manulife.
+              Software Engineer focused on high-performance, systems programming and 3D graphics.
+              Always building and learning new things.
+              Currently at Manulife.
             </p>
             <p>UofT Computer Engineering '24.</p>
           </div>
