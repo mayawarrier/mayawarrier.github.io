@@ -46,7 +46,7 @@ const projects: ShowcaseProjectInfo[] = [
     contributions: [
       <>
         {"Wrote the new from_chars() integer parser with speeds of over 850MB/s - over "}
-        <Bold>{"3 times faster than Microsoft's"}</Bold>{" version, and one of the fastest integer parsers "}
+        <Bold>{"3 times faster than Microsoft's"}</Bold>{" implementation, and one of the fastest integer parsers "}
         {"in the standard library (see "}
         <ShowcaseTile.Link href="https://github.com/alugowski/parse-bench?tab=readme-ov-file#results" isExternal>
           {"benchmarks"}
@@ -62,8 +62,8 @@ const projects: ShowcaseProjectInfo[] = [
     type: ProjectType.PROJECT,
     title: "3D City Renderer",
     description:
-      "Interactive 3D city renderer using real-world data from OpenStreetMap, running in my OpenGL-based 3D engine. " +
-      "Actively working on improving map accuracy, textures and lighting.",
+      "Interactive 3D city renderer using real-world map data, running in my 3D engine built from scratch over OpenGL. " +
+      "Can render the London map extract (30M vertices, 6.5M triangles, 1.7M OSM entities) real-time at 60+ fps.",
     image: {
       url: opengl3dcityImgUrl,
       alt: "On the left, a 3D map of London with the river Thames passing through. " +
@@ -75,8 +75,8 @@ const projects: ShowcaseProjectInfo[] = [
     type: ProjectType.PROJECT,
     title: "Space Invaders Emulator",
     description:
-      "Emulation of the Space Invaders arcade cabinet. Behaves like a virtual machine, running the game's " +
-      "original 1978 binary on a simulated Intel 8080 CPU. Can run natively or in a browser (thanks to WASM).",
+      "Emulation of the Space Invaders arcade cabinet (similar in spirit to QEMU). Behaves like a virtual machine, " +
+      "running the game's original 1978 binary on a simulated Intel 8080 CPU. Can run natively or in a browser (thanks to WASM).",
     image: {
       url: spaceInvadersImgUrl,
       alt: "Rows of aliens from the Space Invaders game on a black background."
@@ -88,10 +88,10 @@ const projects: ShowcaseProjectInfo[] = [
     type: ProjectType.PROJECT,
     title: "3D Renderer FPGA Core",
     description:
-      "A 3D renderer core for the DE1-SoC FPGA (in simple terms: a mini GPU). Features a fully-pipelined triangle " +
-      "intersection unit, a small cache, and an SDRAM reader that reads data over an Avalon-MM bus. The FPGA's onboard " +
-      "ARM processor runs our Linux device driver and a simple TCP server for remote control of the core " +
-      "over any network.",
+      "A 3D renderer core for the DE1-SoC FPGA (in simple terms: a mini GPU). Includes a fully-pipelined triangle " +
+      "intersection core, a caching hierarchy, and an Avalon-MM SDRAM reader. The core is controlled by a custom " +
+      "Linux device driver running on the onboard ARM A9 processor, and a TCP server allows sending new render jobs without " +
+      "reprogramming the device.",
     image: {
       url: fpgaRaytracingImgUrl,
       alt: "Rendered images of a jeep and a shoe produced by the 3D renderer core. " +
@@ -171,22 +171,21 @@ interface WorkExpInfo {
 
 const workExperiences: WorkExpInfo[] = [
   {
-    jobTitle: "Full Stack Software Engineer",
+    jobTitle: "Software Engineer",
     company: "Manulife",
     bullets: [
       <>
-        {"Co-designed and implemented our in-house "}<Bold>{"GPU-accelerated"}</Bold>
-        {" liability valuation engine using Python and Numba "}<Bold>{"CUDA"}</Bold>
-        {", matching the performance of an external vendor solution costing "}<Bold>{"millions of dollars annually."}</Bold>
+        {"Led development of our in-house "}<Bold>{"GPU-accelerated"}</Bold>{" liability valuation engine using "}<Bold>{"CUDA"}</Bold>
+        {", closely matching performance of a vendor solution costing "}<Bold>{"millions of dollars annually."}</Bold>
       </>,
       <>
-        {"Designed and built a report loader service powering "}<Bold>{"all new reports"}</Bold>{" for a major Life Insurance product — "}
-        {"delivered "}<Bold>{"end-to-end in 6 months"}</Bold>{", speeding up project delivery by "}<Bold>{"3 months"}</Bold>{", and earning "}
-        {"an internal award from the CIO and CTO."}
+        {"Single-handedly built a new "}<Bold>{"high-frequency"}</Bold>{" .NET report application, powering all reports"}
+        {" for a major Life Insurance product — delivered "}<Bold>{"end-to-end in 6 months"}</Bold>{", speeding up project delivery by "}
+        {"3 months. Received an "}<Bold>{"award from the CIO"}</Bold>{" for my contributions."}
       </>,
       <>
-        {"Built new features in React + Node and maintained critical Azure cloud infrastructure (including Redis caches and "}
-        {"MongoDB instances) for a consumer-facing web app to onboard new insurance customers, serving "}<Bold>{"thousands of users"}</Bold>{" in Canada."}
+        {"Built new features in React + Node, and managed critical Azure cloud infrastructure (including Redis caches and "}
+        {"MongoDB instances) for a consumer-facing web app serving "}<Bold>{"thousands of users"}</Bold>{" in Canada."}
       </>
     ],
     dateRange: "June 2024 – Present"
@@ -196,20 +195,17 @@ const workExperiences: WorkExpInfo[] = [
     company: "Rocscience",
     bullets: [
       <>
-        {"Co-developed the core library for Rocscience’s new line of 2D geotechnical CAD software using "}
-        <Bold>{".NET, WPF"}</Bold>{" and "}<Bold>{"C++/CUDA."}</Bold>
-      </>,
-      <>
-        {"Built a new Undo/Redo system that works by generating the minimum diff between two object hierarchies "}
-        {"(similar to React's VDOM diffing algorithm), eliminating the need to manually implement undo/redo logic for every change."}
-      </>,
-      <>
-        {"Built our in-house JSON library, using "}<Bold>{".NET IL"}</Bold>{" (intermediate assembly language) to autogenerate fast serialization code."}
+        {"Co-developed the core library for a new line of 2D geotechnical CAD software using "}
+        <Bold>{"C++/CUDA"}</Bold>{", "}<Bold>{".NET"}</Bold>{" and "}<Bold>{"WPF."}</Bold>
       </>,
       <>
         {"Optimized the "}<Bold>{"C++/CUDA"}</Bold>{" compute engine by extracting field-point computations into a dedicated solver. "}
         {"This enabled "}<Bold>{"interactive speeds"}</Bold>{" where "}<Bold>{"previously"}</Bold>{" computations could take "}
-        <Bold>{"tens of minutes "}</Bold>{" or longer."}
+        <Bold>{"tens of minutes"}</Bold>{" or longer."}
+      </>,
+      <>
+        {"Built Rocscience's in-house JSON library, using .NET IL "}<Bold>{"(.NET assembly language)"}</Bold>
+        {" to autogenerate fast serialization code."}
       </>
     ],
     dateRange: "May 2020 – Sep 2021"
@@ -235,8 +231,8 @@ const workExperiences: WorkExpInfo[] = [
         {"Co-developed "}<Bold>{"city-builder"}</Bold>{" in "}<Bold>{"Unity3D"}</Bold>
         {", a cross-platform tool for urban planning and civil engineering research."}
       </>,
-      "Designed a custom file format and supporting APIs to represent cities, roads, and lanes, and " +
-      "to customize their sizes, types, signage etc."
+      "Designed a custom file format and supporting graphical tools to represent cities, roads, " +
+      "and lanes, and to customize their sizes, types, signage etc."
     ],
     dateRange: "Dec 2017 – Jan 2019"
   }
